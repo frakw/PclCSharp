@@ -1,0 +1,6 @@
+D:\TOSHIBA_DT01ACA300\common\PclCSharp\src\PclSharpWrapper\PclCSharp\bin\Debug\PclCSharp.dll
+D:\TOSHIBA_DT01ACA300\common\PclCSharp\src\PclSharpWrapper\PclCSharp\bin\Debug\PclCSharp.pdb
+D:\TOSHIBA_DT01ACA300\common\PclCSharp\src\PclSharpWrapper\PclCSharp\obj\Debug\PclCSharp.csproj.CoreCompileInputs.cache
+D:\TOSHIBA_DT01ACA300\common\PclCSharp\src\PclSharpWrapper\PclCSharp\obj\Debug\PclCSharp.dll
+D:\TOSHIBA_DT01ACA300\common\PclCSharp\src\PclSharpWrapper\PclCSharp\obj\Debug\PclCSharp.pdb
+D:\TOSHIBA_DT01ACA300\common\PclCSharp\src\PclSharpWrapper\PclCSharp\obj\Debug\PclCSharp.csproj.AssemblyReference.cache

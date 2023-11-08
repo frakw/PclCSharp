@@ -1,2 +1,3 @@
 src/PclSharpWrapper/.vs
 demo/PclCSharpDemo/.vs
+src/PclSharpWrapper/lib/boost/libboost_wave-vc141-mt-gd-1_64.lib
