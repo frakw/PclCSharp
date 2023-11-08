@@ -1,14 +1,14 @@
-#include "filter.h"
+ï»¿#include "filter.h"
 
 /*
- * Copyright (c) 2022, ÊæµÇµÇ
+ * Copyright (c) 2022, èˆ’ç™»ç™»
  * All rights reserved.
- * Auther:ÊæµÇµÇ(ShuDengdeng)
+ * Auther:èˆ’ç™»ç™»(ShuDengdeng)
  * Email:2237380450@qq.com
- * 2022626,µãÔÆÂË²¨¹¦ÄÜ
+ * 2022626,ç‚¹äº‘æ»¤æ³¢åŠŸèƒ½
  */
 
-//¶ÔµãÔÆ½øĞĞÌåËØÏÂ²ÉÑù
+//å¯¹ç‚¹äº‘è¿›è¡Œä½“ç´ ä¸‹é‡‡æ ·
 HEAD void CallingConvention voxelDownSample(pcl::PointCloud<pcl::PointXYZ> * in_pc, double leaf_size,
 	                                        pcl::PointCloud<pcl::PointXYZ> * out_pc)
 {
@@ -18,7 +18,7 @@ HEAD void CallingConvention voxelDownSample(pcl::PointCloud<pcl::PointXYZ> * in_
 	voxel.filter(*out_pc);
 
 }
-//¶ÔµãÔÆ½øĞĞ½üËÆÌåËØÏÂ²ÉÑù
+//å¯¹ç‚¹äº‘è¿›è¡Œè¿‘ä¼¼ä½“ç´ ä¸‹é‡‡æ ·
 HEAD void CallingConvention approximateVoxelDownSample(pcl::PointCloud<pcl::PointXYZ> * in_pc, double leaf_size,
 	                                                   pcl::PointCloud<pcl::PointXYZ> * out_pc)
 {
@@ -28,7 +28,7 @@ HEAD void CallingConvention approximateVoxelDownSample(pcl::PointCloud<pcl::Poin
 	avoxel.filter(*out_pc);
 }
 
-//¾ùÔÈÏÂ²ÉÑù
+//å‡åŒ€ä¸‹é‡‡æ ·
 HEAD void CallingConvention uniformDownSample(pcl::PointCloud<pcl::PointXYZ> * in_pc, double radius,
 	pcl::PointCloud<pcl::PointXYZ> * out_pc)
 {
@@ -40,7 +40,7 @@ HEAD void CallingConvention uniformDownSample(pcl::PointCloud<pcl::PointXYZ> * i
 
 }
 
-//Ö±Í¨ÂË²¨
+//ç›´é€šæ»¤æ³¢
 HEAD void CallingConvention passThroughFilter(pcl::PointCloud<pcl::PointXYZ> * in_pc, char * axis_name,
 	float limit_min, float limit_max, int negative,
 	pcl::PointCloud<pcl::PointXYZ> * out_pc)
@@ -62,7 +62,7 @@ HEAD void CallingConvention passThroughFilter(pcl::PointCloud<pcl::PointXYZ> * i
 		pass.filter(*out_pc);
 	}
 }
-//Í³¼ÆÂË²¨
+//ç»Ÿè®¡æ»¤æ³¢
 HEAD void CallingConvention staFilter(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	int neighbor_num, float thresh,
 	pcl::PointCloud<pcl::PointXYZ> * out_pc)
@@ -76,7 +76,7 @@ HEAD void CallingConvention staFilter(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 }
 
 /*
-¹¦ÄÜ£º°ë¾¶ÂË²¨£¬½«ÀëÈºµãÈ¥³ı
+åŠŸèƒ½ï¼šåŠå¾„æ»¤æ³¢ï¼Œå°†ç¦»ç¾¤ç‚¹å»é™¤
 */
 HEAD void CallingConvention radiusFilter(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	double radius, int num_thresh,

@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #include "pcl_util.h"
 
 #include <pcl/sample_consensus/model_types.h>
 #include <pcl/sample_consensus/method_types.h>
 #include <pcl/segmentation/sac_segmentation.h>
-#include <pcl/segmentation/extract_clusters.h>//Å·Ê½¾ÛÀà
+#include <pcl/segmentation/extract_clusters.h>//æ¬§å¼èšç±»
 #include <pcl/ModelCoefficients.h>
 #include <pcl/common/transforms.h>
 #include <pcl/common/common.h>
@@ -12,19 +12,19 @@
 #include <set>
 
 /*
- * Copyright (c) 2022, ÊæµÇµÇ
+ * Copyright (c) 2022, èˆ’ç™»ç™»
  * All rights reserved.
- * Auther:ÊæµÇµÇ(ShuDengdeng)
+ * Auther:èˆ’ç™»ç™»(ShuDengdeng)
  * Email:2237380450@qq.com
- * utilÄ£¿é£¬°üº¬ºÜ¶àµãÔÆ´¦Àí¹¤¾ßº¯Êı
+ * utilæ¨¡å—ï¼ŒåŒ…å«å¾ˆå¤šç‚¹äº‘å¤„ç†å·¥å…·å‡½æ•°
  */
 
 using namespace std;
-//¶¨Òåµ¼³ö·½Ê½£ºÒÔCÓïÑÔµÄ·½Ê½µ¼³ö£¬ÒòÎªCÓïÑÔ·½Ê½º¯ÊıÃû±£³Ö²»±ä
+//å®šä¹‰å¯¼å‡ºæ–¹å¼ï¼šä»¥Cè¯­è¨€çš„æ–¹å¼å¯¼å‡ºï¼Œå› ä¸ºCè¯­è¨€æ–¹å¼å‡½æ•°åä¿æŒä¸å˜
 #define EXTERNC extern "C"
-//¶¨Òådllµ¼³ö·½Ê½£¬´Ë´¦ÊÇµ¼³ö£¬Èç¹ûÊÇµ¼ÈëÔòÎªdllinport
+//å®šä¹‰dllå¯¼å‡ºæ–¹å¼ï¼Œæ­¤å¤„æ˜¯å¯¼å‡ºï¼Œå¦‚æœæ˜¯å¯¼å…¥åˆ™ä¸ºdllinport
 #define HEAD EXTERNC __declspec(dllexport)
-//¶¨Òåµ÷ÓÃÔ¼¶¨£¬´Ë´¦Ñ¡Ôñ±ê×¼µ÷ÓÃÔ¼¶¨£¬Ò²¿ÉÒÔÓÃcµ÷ÓÃÔ¼¶¨
+//å®šä¹‰è°ƒç”¨çº¦å®šï¼Œæ­¤å¤„é€‰æ‹©æ ‡å‡†è°ƒç”¨çº¦å®šï¼Œä¹Ÿå¯ä»¥ç”¨cè°ƒç”¨çº¦å®š
 #define CallingConvention __stdcall
 
 
@@ -32,58 +32,58 @@ using namespace std;
 
 
 /*
-¹¦ÄÜ£º½«ÇãĞ±µÄµãÔÆÆ½ÃæĞ£Õı£¬Ò²¾ÍÊÇ½«µãÔÆÆ½Ãæ±ä»»ÖÁºÍË®Æ½ÃæÆ½ĞĞ
-param[in] in_x Ä¿±êµãÔÆ¶ÔÏóÖ¸Õë
-param[in] normal ÊäÈëµãÔÆµÄ·¨ÏòÁ¿
-param[out] out_x ½á¹ûµãÔÆ¶ÔÏóµÄÖ¸Õë
+åŠŸèƒ½ï¼šå°†å€¾æ–œçš„ç‚¹äº‘å¹³é¢æ ¡æ­£ï¼Œä¹Ÿå°±æ˜¯å°†ç‚¹äº‘å¹³é¢å˜æ¢è‡³å’Œæ°´å¹³é¢å¹³è¡Œ
+param[in] in_x ç›®æ ‡ç‚¹äº‘å¯¹è±¡æŒ‡é’ˆ
+param[in] normal è¾“å…¥ç‚¹äº‘çš„æ³•å‘é‡
+param[out] out_x ç»“æœç‚¹äº‘å¯¹è±¡çš„æŒ‡é’ˆ
 */
 HEAD void CallingConvention correctPlane(pcl::PointCloud<pcl::PointXYZ> * in_pc, float * normal,
 	pcl::PointCloud<pcl::PointXYZ> * out_pc);
 
 
 /*
-¹¦ÄÜ£ºsigam·¨ÔòÌŞ³ıÒì³£Öµ
-param[in] in_pc Ä¿±êµãÔÆ¶ÔÏóÖ¸Õë
-param[in] sigam_thresh   sigam·¨ÔòãĞÖµ£¬Ò»°ãÎª3
-param[out] out_x ½á¹ûµãÔÆ¶ÔÏóÖ¸Õë
+åŠŸèƒ½ï¼šsigamæ³•åˆ™å‰”é™¤å¼‚å¸¸å€¼
+param[in] in_pc ç›®æ ‡ç‚¹äº‘å¯¹è±¡æŒ‡é’ˆ
+param[in] sigam_thresh   sigamæ³•åˆ™é˜ˆå€¼ï¼Œä¸€èˆ¬ä¸º3
+param[out] out_x ç»“æœç‚¹äº‘å¯¹è±¡æŒ‡é’ˆ
 */
 HEAD void CallingConvention sigamFilter(pcl::PointCloud<pcl::PointXYZ> * in_pc, int sigam_thresh,
 	pcl::PointCloud<pcl::PointXYZ> * out_pc);
 
 /*
-¹¦ÄÜ£º½«µãÔÆ°´ÕÕÁĞ·½Ïò´æ´¢£¬Ã¿Ò»ÁĞ´ú±íÒ»¸ö²âÁ¿Ô²ÖÜ£¬²¢Êä³öÓÃ»§Ö¸¶¨µÄnÁĞ²âÁ¿Ô²ÖÜµãÔÆ
-param[in] in_pc Ä¿±êµãÔÆ¶ÔÏóÖ¸Õë
-param[in] num   Ö¸¶¨Êä³ö¶àÉÙÁĞ²âÁ¿Ô²ÖÜµãÔÆ£¬Ò»°ãÀ´Ëµ£¬nÔ½´ó£¬Ô½±Æ½ü¶ËÃæÈ«Ìø¶¯
-µ±nÎªÕû¸öµãÔÆµÄÁĞÊıÄ¿£¬Êä³öµÄ¾ÍÊÇÕû¸öµãÔÆ£¬²âÁ¿µÄ½á¹ûÊµ¼ÊÉÏÊÇ¶ËÃæÈ«Ìø¶¯¡£nÒ»°ãÄ¬ÈÏÎª20
-param[out] out_x ½á¹ûµãÔÆ¶ÔÏóÖ¸Õë
+åŠŸèƒ½ï¼šå°†ç‚¹äº‘æŒ‰ç…§åˆ—æ–¹å‘å­˜å‚¨ï¼Œæ¯ä¸€åˆ—ä»£è¡¨ä¸€ä¸ªæµ‹é‡åœ†å‘¨ï¼Œå¹¶è¾“å‡ºç”¨æˆ·æŒ‡å®šçš„nåˆ—æµ‹é‡åœ†å‘¨ç‚¹äº‘
+param[in] in_pc ç›®æ ‡ç‚¹äº‘å¯¹è±¡æŒ‡é’ˆ
+param[in] num   æŒ‡å®šè¾“å‡ºå¤šå°‘åˆ—æµ‹é‡åœ†å‘¨ç‚¹äº‘ï¼Œä¸€èˆ¬æ¥è¯´ï¼Œnè¶Šå¤§ï¼Œè¶Šé€¼è¿‘ç«¯é¢å…¨è·³åŠ¨
+å½“nä¸ºæ•´ä¸ªç‚¹äº‘çš„åˆ—æ•°ç›®ï¼Œè¾“å‡ºçš„å°±æ˜¯æ•´ä¸ªç‚¹äº‘ï¼Œæµ‹é‡çš„ç»“æœå®é™…ä¸Šæ˜¯ç«¯é¢å…¨è·³åŠ¨ã€‚nä¸€èˆ¬é»˜è®¤ä¸º20
+param[out] out_x ç»“æœç‚¹äº‘å¯¹è±¡æŒ‡é’ˆ
 */
 HEAD void CallingConvention getRunoutPoints(pcl::PointCloud<pcl::PointXYZ> * in_pc, int num,
 	pcl::PointCloud<pcl::PointXYZ> * out_pc);
 
 /*
-¹¦ÄÜ£ºÓÃÓÚ×Ô¼º²âÊÔ£¬Ö±½Ó·µ»Ø¶ËÌø½á¹û£¬²»¶ÔÍâÌá¹©½Ó¿Ú
-½«µãÔÆ°´ÕÕÁĞ·½Ïò´æ´¢£¬Ã¿Ò»ÁĞ´ú±íÒ»¸ö²âÁ¿Ô²ÖÜ£¬²¢Êä³öÓÃ»§Ö¸¶¨µÄnÁĞ²âÁ¿Ô²ÖÜµãÔÆ
-//¶øÇÒ»¹»áÓÃÎ÷¸ñÂê·¨ÔòÌŞ³ıÒì³£Öµ£¬²¢·µ»Ø×îÖÕµÄ¶ËÃæÌø¶¯
-param[in] in_x Ä¿±êµãÔÆx×ø±ê
-param[in] in_y Ä¿±êµãÔÆy×ø±ê
-param[in] in_z Ä¿±êµãÔÆz×ø±ê
-param[in] num   Ö¸¶¨Êä³ö¶àÉÙÁĞ²âÁ¿Ô²ÖÜµãÔÆ£¬Ò»°ãÀ´Ëµ£¬nÔ½´ó£¬Ô½±Æ½ü¶ËÃæÈ«Ìø¶¯
-µ±nÎªÕû¸öµãÔÆµÄÁĞÊıÄ¿£¬Êä³öµÄ¾ÍÊÇÕû¸öµãÔÆ£¬²âÁ¿µÄ½á¹ûÊµ¼ÊÉÏÊÇ¶ËÃæÈ«Ìø¶¯¡£nÒ»°ãÄ¬ÈÏÎª20
-param[out] out_x ½á¹ûµãÔÆµÄX×ø±ê
-param[out] out_y ½á¹ûµãÔÆµÄY×ø±ê
-param[out] out_z ½á¹ûµãÔÆµÄZ×ø±ê
+åŠŸèƒ½ï¼šç”¨äºè‡ªå·±æµ‹è¯•ï¼Œç›´æ¥è¿”å›ç«¯è·³ç»“æœï¼Œä¸å¯¹å¤–æä¾›æ¥å£
+å°†ç‚¹äº‘æŒ‰ç…§åˆ—æ–¹å‘å­˜å‚¨ï¼Œæ¯ä¸€åˆ—ä»£è¡¨ä¸€ä¸ªæµ‹é‡åœ†å‘¨ï¼Œå¹¶è¾“å‡ºç”¨æˆ·æŒ‡å®šçš„nåˆ—æµ‹é‡åœ†å‘¨ç‚¹äº‘
+//è€Œä¸”è¿˜ä¼šç”¨è¥¿æ ¼ç›æ³•åˆ™å‰”é™¤å¼‚å¸¸å€¼ï¼Œå¹¶è¿”å›æœ€ç»ˆçš„ç«¯é¢è·³åŠ¨
+param[in] in_x ç›®æ ‡ç‚¹äº‘xåæ ‡
+param[in] in_y ç›®æ ‡ç‚¹äº‘yåæ ‡
+param[in] in_z ç›®æ ‡ç‚¹äº‘zåæ ‡
+param[in] num   æŒ‡å®šè¾“å‡ºå¤šå°‘åˆ—æµ‹é‡åœ†å‘¨ç‚¹äº‘ï¼Œä¸€èˆ¬æ¥è¯´ï¼Œnè¶Šå¤§ï¼Œè¶Šé€¼è¿‘ç«¯é¢å…¨è·³åŠ¨
+å½“nä¸ºæ•´ä¸ªç‚¹äº‘çš„åˆ—æ•°ç›®ï¼Œè¾“å‡ºçš„å°±æ˜¯æ•´ä¸ªç‚¹äº‘ï¼Œæµ‹é‡çš„ç»“æœå®é™…ä¸Šæ˜¯ç«¯é¢å…¨è·³åŠ¨ã€‚nä¸€èˆ¬é»˜è®¤ä¸º20
+param[out] out_x ç»“æœç‚¹äº‘çš„Xåæ ‡
+param[out] out_y ç»“æœç‚¹äº‘çš„Yåæ ‡
+param[out] out_z ç»“æœç‚¹äº‘çš„Zåæ ‡
 */
 HEAD float CallingConvention getRunoutPointsWithResult(pcl::PointCloud<pcl::PointXYZ> * in_pc, int num,
 	pcl::PointCloud<pcl::PointXYZ> * out_pc);
 
 /*
-¹¦ÄÜ£º ¼ÆËã¶ËÃæÌø¶¯,²¢·µ»Ø¸ÃµãÔÆÖĞ×îĞ¡×î´óµãµÄË÷Òı
-param[in] in_pc Ä¿±êµãÔÆ¶ÔÏóÖ¸Õë
+åŠŸèƒ½ï¼š è®¡ç®—ç«¯é¢è·³åŠ¨,å¹¶è¿”å›è¯¥ç‚¹äº‘ä¸­æœ€å°æœ€å¤§ç‚¹çš„ç´¢å¼•
+param[in] in_pc ç›®æ ‡ç‚¹äº‘å¯¹è±¡æŒ‡é’ˆ
 */
 HEAD double CallingConvention calculateRunout(pcl::PointCloud<pcl::PointXYZ> * in_pc, int * indices);
 
 /*
-¹¦ÄÜ£º ¸ù¾İµãÔÆË÷Òı£¬´ÓÒ»¸öµãÔÆ¶ÔÏóÖĞ¿½±´³öÀ´¶ÔÓ¦µÄµã
+åŠŸèƒ½ï¼š æ ¹æ®ç‚¹äº‘ç´¢å¼•ï¼Œä»ä¸€ä¸ªç‚¹äº‘å¯¹è±¡ä¸­æ‹·è´å‡ºæ¥å¯¹åº”çš„ç‚¹
 */
 HEAD void CallingConvention copyPcBaseOnIndice(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	pcl::PointIndices * in_indice,

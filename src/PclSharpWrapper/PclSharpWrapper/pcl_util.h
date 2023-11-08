@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 #include <vector>
 #include <pcl/common/transforms.h>
@@ -6,23 +6,23 @@
 #include <pcl/common/common_headers.h>
 
 /*
- * Copyright (c) 2022, ÊæµÇµÇ
+ * Copyright (c) 2022, èˆ’ç™»ç™»
  * All rights reserved.
- * Auther:ÊæµÇµÇ(ShuDengdeng)
+ * Auther:èˆ’ç™»ç™»(ShuDengdeng)
  * Email:2237380450@qq.com
- * µãÔÆ´¦ÀíµÄÒ»Ğ©¹¤¾ßº¯Êı£¬²»Ìá¹©¶ÔÍâ½Ó¿Ú
+ * ç‚¹äº‘å¤„ç†çš„ä¸€äº›å·¥å…·å‡½æ•°ï¼Œä¸æä¾›å¯¹å¤–æ¥å£
  */
 
 using namespace std;
 
-//ÓÃÓÚÇøÓòÉú³¤£¬½«µãÊı×î¶àµÄµã´ØµÄË÷Òı·µ»Ø
+//ç”¨äºåŒºåŸŸç”Ÿé•¿ï¼Œå°†ç‚¹æ•°æœ€å¤šçš„ç‚¹ç°‡çš„ç´¢å¼•è¿”å›
 int getMaxPointCluster(vector<pcl::PointIndices> cluster);
-//ÓÃÓÚÆ½ÃæÄâºÏÖĞ»ñµÃÄâºÏºóµÄÆ½ÃæÓëxy²Î¿¼ÃæµÄÇãĞ±½Ç
+//ç”¨äºå¹³é¢æ‹Ÿåˆä¸­è·å¾—æ‹Ÿåˆåçš„å¹³é¢ä¸xyå‚è€ƒé¢çš„å€¾æ–œè§’
 double getAngle(double line1[3], double line2[3]);
-//ÓÃÓÚ»ñÈ¡Á½ÏòÁ¿µÄ±äĞı×ª»»¾ØÕó
+//ç”¨äºè·å–ä¸¤å‘é‡çš„å˜æ—‹è½¬æ¢çŸ©é˜µ
 Eigen::Matrix4f getRotationMatrix(Eigen::Vector3f vector_before, Eigen::Vector3f vector_after);
-//½«ÏòÁ¿µãÔÆÁ¬½ÓÎªµãÔÆ¶ÔÏó
+//å°†å‘é‡ç‚¹äº‘è¿æ¥ä¸ºç‚¹äº‘å¯¹è±¡
 void connect_pc(vector<pcl::PointCloud<pcl::PointXYZ>>& input_pc1, pcl::PointCloud<pcl::PointXYZ> & out_cloud);
 
-//º¯ÊıÖØÔØ£¬3Î÷¸ñÂê·¨ÔòÌŞ³ıÒì³£Öµ£¬ÊäÈëÊÇµãÔÆ£¬Êä³öÊÇµãÔÆÏòÁ¿
+//å‡½æ•°é‡è½½ï¼Œ3è¥¿æ ¼ç›æ³•åˆ™å‰”é™¤å¼‚å¸¸å€¼ï¼Œè¾“å…¥æ˜¯ç‚¹äº‘ï¼Œè¾“å‡ºæ˜¯ç‚¹äº‘å‘é‡
 void stdDev_filter(vector<pcl::PointCloud<pcl::PointXYZ>>& input_cloud, vector<pcl::PointCloud<pcl::PointXYZ>>& out_cloud);

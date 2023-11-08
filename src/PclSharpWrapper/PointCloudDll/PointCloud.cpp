@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <iostream>
@@ -8,35 +8,35 @@
 #include <pcl/common/common.h>
 
 /*
- * Copyright (c) 2022, ÊæµÇµÇ
+ * Copyright (c) 2022, èˆ’ç™»ç™»
  * All rights reserved.
- * Auther:ÊæµÇµÇ(ShuDengdeng)
+ * Auther:èˆ’ç™»ç™»(ShuDengdeng)
  * Email:2237380450@qq.com
- * ¸øC#²ãÌá¹©PclÊı¾İ½á¹¹µÄ½Ó¿Ú
+ * ç»™C#å±‚æä¾›Pclæ•°æ®ç»“æ„çš„æ¥å£
  */
 
 using namespace std;
 
-//¶¨Òåµ¼³ö·½Ê½£ºÒÔCÓïÑÔµÄ·½Ê½µ¼³ö£¬ÒòÎªCÓïÑÔ·½Ê½º¯ÊıÃû±£³Ö²»±ä
+//å®šä¹‰å¯¼å‡ºæ–¹å¼ï¼šä»¥Cè¯­è¨€çš„æ–¹å¼å¯¼å‡ºï¼Œå› ä¸ºCè¯­è¨€æ–¹å¼å‡½æ•°åä¿æŒä¸å˜
 #define EXTERNC extern "C"
-//¶¨Òådllµ¼³ö·½Ê½£¬´Ë´¦ÊÇµ¼³ö£¬Èç¹ûÊÇµ¼ÈëÔòÎªdllinport
+//å®šä¹‰dllå¯¼å‡ºæ–¹å¼ï¼Œæ­¤å¤„æ˜¯å¯¼å‡ºï¼Œå¦‚æœæ˜¯å¯¼å…¥åˆ™ä¸ºdllinport
 #define HEAD EXTERNC __declspec(dllexport)
-//¶¨Òåµ÷ÓÃÔ¼¶¨£¬´Ë´¦Ñ¡Ôñ±ê×¼µ÷ÓÃÔ¼¶¨£¬Ò²¿ÉÒÔÓÃcµ÷ÓÃÔ¼¶¨
+//å®šä¹‰è°ƒç”¨çº¦å®šï¼Œæ­¤å¤„é€‰æ‹©æ ‡å‡†è°ƒç”¨çº¦å®šï¼Œä¹Ÿå¯ä»¥ç”¨cè°ƒç”¨çº¦å®š
 #define CallingConvention __stdcall
 
-//²»Í¬Êı¾İ½á¹¹µÄºê
+//ä¸åŒæ•°æ®ç»“æ„çš„å®
 #define POINTXYZ 1
 #define POINTINDICES 1
 #define POINTXYZRGB 0
 
-/*PointCloudXYZµÄÏà¹Øº¯Êı½Ó¿Ú*/
+/*PointCloudXYZçš„ç›¸å…³å‡½æ•°æ¥å£*/
 #if POINTXYZ
-//·µ»Ø¸ÃÀàµÄÖ¸Õë
+//è¿”å›è¯¥ç±»çš„æŒ‡é’ˆ
 HEAD pcl::PointCloud<pcl::PointXYZ> * CallingConvention CreatePointCloud()
 {
 	return new pcl::PointCloud<pcl::PointXYZ>();
 }
-//´ÓµãÔÆÎÄ¼şÖĞ¼ÓÔØµãÔÆ
+//ä»ç‚¹äº‘æ–‡ä»¶ä¸­åŠ è½½ç‚¹äº‘
 HEAD pcl::PointCloud<pcl::PointXYZ> * CallingConvention loadPcFile(char * path)
 {
 	pcl::PointCloud<pcl::PointXYZ> * cloud = new pcl::PointCloud<pcl::PointXYZ>();
@@ -53,98 +53,98 @@ HEAD pcl::PointCloud<pcl::PointXYZ> * CallingConvention loadPcFile(char * path)
 	}
 
 }
-//É¾³ıµãÔÆÖ¸Õë
+//åˆ é™¤ç‚¹äº‘æŒ‡é’ˆ
 HEAD void CallingConvention DeletePointCloud(pcl::PointCloud<pcl::PointXYZ> * pc)
 {
 	delete  pc;
 }
-//·µ»ØµãÔÆ´óĞ¡
+//è¿”å›ç‚¹äº‘å¤§å°
 HEAD int CallingConvention CountPointCloud(pcl::PointCloud<pcl::PointXYZ> * pc)
 {
 	return  pc->size();
 }
 
-//·µ»ØµãÔÆ¸ß¶È
+//è¿”å›ç‚¹äº‘é«˜åº¦
 HEAD int CallingConvention getPointCloudH(pcl::PointCloud<pcl::PointXYZ> * pc)
 {
 	return  pc->height;
 }
 
-//·µ»ØµãÔÆ¿í¶È
+//è¿”å›ç‚¹äº‘å®½åº¦
 HEAD int CallingConvention getPointCloudW(pcl::PointCloud<pcl::PointXYZ> * pc)
 {
-	//Ö±½ÓÊ¹ÓÃpc->widthµÄ»°£¬ÔòÕâ¸öÖµÖ»ÓĞÒ»¿ªÊ¼µÄÊ±ºò»á±ä£¬¼ÙÈçµãÔÆ´óĞ¡¸Ä±ä£¬Õâ¸öÖµÊÇ²»»á±äµÄ
-	//ÒòÎªËüÖ»ÊÇÒ»¸öÊôĞÔ£¬²¢²»»áËæ×ÅµãÔÆ´óĞ¡¸Ä±ä¶ø×ÔÊÊÓ¦¸Ä±äÖµ
-	//¼øÓÚ´ó²¿·ÖµãÔÆ¶¼ÊÇÎŞĞòµãÔÆ£¬widthÖµ¾ÍÊÇsizeÖµ£¬ËùÒÔÕâÀïÖ±½ÓÓÃsize·½·¨
+	//ç›´æ¥ä½¿ç”¨pc->widthçš„è¯ï¼Œåˆ™è¿™ä¸ªå€¼åªæœ‰ä¸€å¼€å§‹çš„æ—¶å€™ä¼šå˜ï¼Œå‡å¦‚ç‚¹äº‘å¤§å°æ”¹å˜ï¼Œè¿™ä¸ªå€¼æ˜¯ä¸ä¼šå˜çš„
+	//å› ä¸ºå®ƒåªæ˜¯ä¸€ä¸ªå±æ€§ï¼Œå¹¶ä¸ä¼šéšç€ç‚¹äº‘å¤§å°æ”¹å˜è€Œè‡ªé€‚åº”æ”¹å˜å€¼
+	//é‰´äºå¤§éƒ¨åˆ†ç‚¹äº‘éƒ½æ˜¯æ— åºç‚¹äº‘ï¼Œwidthå€¼å°±æ˜¯sizeå€¼ï¼Œæ‰€ä»¥è¿™é‡Œç›´æ¥ç”¨sizeæ–¹æ³•
 
 	return  pc->size();
 }
 
-//·µ»ØµãÔÆxyzµÄ¼«Öµ
+//è¿”å›ç‚¹äº‘xyzçš„æå€¼
 HEAD void CallingConvention getMinMaxXYZ(pcl::PointCloud<pcl::PointXYZ> * pc,double * out_res)
 {
 	pcl::PointXYZ minp(0, 0, 0);
 	pcl::PointXYZ maxp(0, 0, 0);
 	pcl::getMinMax3D(*pc, minp, maxp);
-	out_res[0] = minp.x;//×îĞ¡x
-	out_res[1] = maxp.x;//×î´óx
-	out_res[2] = minp.y;//×îĞ¡y
-	out_res[3] = maxp.y;//×î´óy
-	out_res[4] = minp.z;//×îĞ¡z
-	out_res[5] = maxp.z;//×î´óz
+	out_res[0] = minp.x;//æœ€å°x
+	out_res[1] = maxp.x;//æœ€å¤§x
+	out_res[2] = minp.y;//æœ€å°y
+	out_res[3] = maxp.y;//æœ€å¤§y
+	out_res[4] = minp.z;//æœ€å°z
+	out_res[5] = maxp.z;//æœ€å¤§z
 
 
 }
 
-//·µ»ØË÷ÒıindexµÄXÖµ
+//è¿”å›ç´¢å¼•indexçš„Xå€¼
 HEAD double CallingConvention getX(pcl::PointCloud<pcl::PointXYZ> * pc, int index)
 {
 	return  pc->points[index].x;
 }
-//·µ»ØË÷ÒıindexµÄYÖµ
+//è¿”å›ç´¢å¼•indexçš„Yå€¼
 HEAD double CallingConvention getY(pcl::PointCloud<pcl::PointXYZ> * pc, int index)
 {
 	return  pc->points[index].y;
 }
-//·µ»ØË÷ÒıindexµÄZÖµ
+//è¿”å›ç´¢å¼•indexçš„Zå€¼
 HEAD double CallingConvention getZ(pcl::PointCloud<pcl::PointXYZ> * pc, int index)
 {
 	return  pc->points[index].z;
 }
-//¸Ä±äË÷ÒıindexµÄXÖµ
+//æ”¹å˜ç´¢å¼•indexçš„Xå€¼
 HEAD void CallingConvention setX(pcl::PointCloud<pcl::PointXYZ> * pc, int index,double x)
 {
 	pc->points[index].x = x;
 }
-//¸Ä±äË÷ÒıindexµÄXÖµ
+//æ”¹å˜ç´¢å¼•indexçš„Xå€¼
 HEAD void CallingConvention setY(pcl::PointCloud<pcl::PointXYZ> * pc, int index, double y)
 {
 	pc->points[index].y = y;
 }
-//¸Ä±äË÷ÒıindexµÄXÖµ
+//æ”¹å˜ç´¢å¼•indexçš„Xå€¼
 HEAD void CallingConvention setZ(pcl::PointCloud<pcl::PointXYZ> * pc, int index, double z)
 {
 	pc->points[index].z = z;
 }
 
-//¸Ä±äµãÔÆµÄ´óĞ¡
+//æ”¹å˜ç‚¹äº‘çš„å¤§å°
 HEAD void CallingConvention reSize(pcl::PointCloud<pcl::PointXYZ> * pc, int size)
 {
 	pc->points.resize(size);
 }
-//Ñ¹ÈëÒ»¸öµã
+//å‹å…¥ä¸€ä¸ªç‚¹
 HEAD void CallingConvention push(pcl::PointCloud<pcl::PointXYZ> * pc, double x, double y, double z)
 {
 	pcl::PointXYZ p(x, y, z);
 	pc->points.push_back(p);
 }
-//µ¯³öÒ»¸öµã
+//å¼¹å‡ºä¸€ä¸ªç‚¹
 HEAD void CallingConvention pop(pcl::PointCloud<pcl::PointXYZ> * pc)
 {
 	pc->points.pop_back();
 }
 
-//Çå¿ÕµãÔÆ¶ÔÏóÖĞËùÓĞµã
+//æ¸…ç©ºç‚¹äº‘å¯¹è±¡ä¸­æ‰€æœ‰ç‚¹
 HEAD void CallingConvention clear(pcl::PointCloud<pcl::PointXYZ> * pc)
 {
 	pc->clear();
@@ -153,19 +153,19 @@ HEAD void CallingConvention clear(pcl::PointCloud<pcl::PointXYZ> * pc)
 #endif
 
 
-/*PointIndicesµÄÏà¹Øº¯Êı½Ó¿Ú*/
+/*PointIndicesçš„ç›¸å…³å‡½æ•°æ¥å£*/
 #if POINTINDICES
-//·µ»ØµãÔÆË÷ÒıÏòÁ¿µÄÖ¸Õë
+//è¿”å›ç‚¹äº‘ç´¢å¼•å‘é‡çš„æŒ‡é’ˆ
 HEAD vector<pcl::PointIndices> * CallingConvention CreatePointIndices()
 {
 	return new vector<pcl::PointIndices>();
 }
-//É¾³ıÖ¸Õë
+//åˆ é™¤æŒ‡é’ˆ
 HEAD void CallingConvention DeletePointIndices(vector<pcl::PointIndices> * in_indice)
 {
 	delete in_indice;
 }
-//·µ»ØµãÔÆË÷ÒıµÄ´óĞ¡
+//è¿”å›ç‚¹äº‘ç´¢å¼•çš„å¤§å°
 HEAD int CallingConvention CountPointIndices(vector<pcl::PointIndices> * in_indice)
 {
 	return in_indice->size();
@@ -185,15 +185,15 @@ HEAD int CallingConvention getSizeOfIndice(vector<pcl::PointIndices> * in_indice
 #endif
 
 
-/*PointXYZRGBµÄÏà¹Øº¯Êı½Ó¿Ú,³¢ÊÔÊ¹ÓÃÄ£°å±à³Ì£¬Ôö¼Ó·º»¯ĞÔ*/
+/*PointXYZRGBçš„ç›¸å…³å‡½æ•°æ¥å£,å°è¯•ä½¿ç”¨æ¨¡æ¿ç¼–ç¨‹ï¼Œå¢åŠ æ³›åŒ–æ€§*/
 #if POINTXYZRGB
-//·µ»Ø¸ÃÀàµÄÖ¸Õë
+//è¿”å›è¯¥ç±»çš„æŒ‡é’ˆ
 
 HEAD pcl::PointCloud<pcl::PointXYZ> * CallingConvention CreatePointCloud()
 {
 	return new pcl::PointCloud<pcl::PointXYZ>();
 }
-//´ÓµãÔÆÎÄ¼şÖĞ¼ÓÔØµãÔÆ
+//ä»ç‚¹äº‘æ–‡ä»¶ä¸­åŠ è½½ç‚¹äº‘
 HEAD pcl::PointCloud<pcl::PointXYZ> * CallingConvention loadPcFile(char * path)
 {
 	pcl::PointCloud<pcl::PointXYZ> * cloud = new pcl::PointCloud<pcl::PointXYZ>();

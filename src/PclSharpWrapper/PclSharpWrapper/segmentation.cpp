@@ -1,20 +1,20 @@
-#include "segmentation.h"
+ï»¿#include "segmentation.h"
 
 /*
- * Copyright (c) 2022, ÊæµÇµÇ
+ * Copyright (c) 2022, èˆ’ç™»ç™»
  * All rights reserved.
- * Auther:ÊæµÇµÇ(ShuDengdeng)
+ * Auther:èˆ’ç™»ç™»(ShuDengdeng)
  * Email:2237380450@qq.com
- * µãÔÆ·Ö¸î¹¦ÄÜ
+ * ç‚¹äº‘åˆ†å‰²åŠŸèƒ½
  */
 
-//Ô­Ê¼µÄÇøÓòÉú³¤
+//åŸå§‹çš„åŒºåŸŸç”Ÿé•¿
 HEAD void CallingConvention oriGrowRegion(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	int neighbor_num, float smooth_thresh, float curva_thresh,
 	int MinClusterSize, int MaxClusterSize,
 	vector<pcl::PointIndices> * out_indice)
 {
-	//¼ÆËãµãÔÆµÄ·¨ÏòÁ¿
+	//è®¡ç®—ç‚¹äº‘çš„æ³•å‘é‡
 	pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
 	pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>());
 
@@ -24,7 +24,7 @@ HEAD void CallingConvention oriGrowRegion(pcl::PointCloud<pcl::PointXYZ> * in_pc
 	ne.setKSearch(neighbor_num);
 	ne.compute(*normals);
 
-	//ÇøÓòÉú³¤
+	//åŒºåŸŸç”Ÿé•¿
 	pcl::RegionGrowing<pcl::PointXYZ, pcl::Normal> rg;
 	rg.setSearchMethod(tree);
 	rg.setInputCloud(in_pc->makeShared());
@@ -33,15 +33,15 @@ HEAD void CallingConvention oriGrowRegion(pcl::PointCloud<pcl::PointXYZ> * in_pc
 	rg.setMaxClusterSize(MaxClusterSize);
 	rg.setCurvatureThreshold(curva_thresh);
 	rg.setNumberOfNeighbours(neighbor_num);
-	rg.setSmoothnessThreshold(smooth_thresh / 180.0 * M_PI);//ÒªÇóÊÇ»¡¶È£¬ÊäÈëµÄÊÇ½Ç¶È£¬ËùÒÔ×ª»»Ò»ÏÂ
+	rg.setSmoothnessThreshold(smooth_thresh / 180.0 * M_PI);//è¦æ±‚æ˜¯å¼§åº¦ï¼Œè¾“å…¥çš„æ˜¯è§’åº¦ï¼Œæ‰€ä»¥è½¬æ¢ä¸€ä¸‹
 
-	//ÌáÈ¡¾ÛÀàºóµÄµã´Ø
+	//æå–èšç±»åçš„ç‚¹ç°‡
 	//vector<pcl::PointIndices> cluster;
 	rg.extract(*out_indice);
 
 }
 
-//Å·Ê½¾ÛÀà
+//æ¬§å¼èšç±»
 HEAD void CallingConvention euclideanCluster(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	double distance_thresh, int MinClusterSize, int MaxClusterSize,
 	vector<pcl::PointIndices> * out_indice)
@@ -59,13 +59,13 @@ HEAD void CallingConvention euclideanCluster(pcl::PointCloud<pcl::PointXYZ> * in
 
 }
 
-//·â×°ºóµÄÇøÓòÉú³¤£¬Ö±½Ó·µ»ØµãÊıµÄ×î¶àµÄÆ½Ãæ
+//å°è£…åçš„åŒºåŸŸç”Ÿé•¿ï¼Œç›´æ¥è¿”å›ç‚¹æ•°çš„æœ€å¤šçš„å¹³é¢
 HEAD void CallingConvention modifiedGrowRegion(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	int neighbor_num, float smooth_thresh, float curva_thresh,
 	int MinClusterSize, int MaxClusterSize,
 	pcl::PointCloud<pcl::PointXYZ> * out_pc)
 {
-	//¼ÆËãµãÔÆµÄ·¨ÏòÁ¿
+	//è®¡ç®—ç‚¹äº‘çš„æ³•å‘é‡
 	pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>());
 	pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>());
 
@@ -75,7 +75,7 @@ HEAD void CallingConvention modifiedGrowRegion(pcl::PointCloud<pcl::PointXYZ> * 
 	ne.setKSearch(neighbor_num);
 	ne.compute(*normals);
 
-	//ÇøÓòÉú³¤
+	//åŒºåŸŸç”Ÿé•¿
 	pcl::RegionGrowing<pcl::PointXYZ, pcl::Normal> rg;
 	rg.setSearchMethod(tree);
 	rg.setInputCloud(in_pc->makeShared());
@@ -84,13 +84,13 @@ HEAD void CallingConvention modifiedGrowRegion(pcl::PointCloud<pcl::PointXYZ> * 
 	rg.setMaxClusterSize(MaxClusterSize);
 	rg.setCurvatureThreshold(curva_thresh);
 	rg.setNumberOfNeighbours(neighbor_num);
-	rg.setSmoothnessThreshold(smooth_thresh / 180.0 * M_PI);//ÒªÇóÊÇ»¡¶È£¬ÊäÈëµÄÊÇ½Ç¶È£¬ËùÒÔ×ª»»Ò»ÏÂ
+	rg.setSmoothnessThreshold(smooth_thresh / 180.0 * M_PI);//è¦æ±‚æ˜¯å¼§åº¦ï¼Œè¾“å…¥çš„æ˜¯è§’åº¦ï¼Œæ‰€ä»¥è½¬æ¢ä¸€ä¸‹
 
-	//ÌáÈ¡¾ÛÀàºóµÄµã´Ø
+	//æå–èšç±»åçš„ç‚¹ç°‡
 	vector<pcl::PointIndices> cluster;
 	rg.extract(cluster);
 
-	//ÕÒµ½µãÊı×î¶àµÄÆ½Ãæ
+	//æ‰¾åˆ°ç‚¹æ•°æœ€å¤šçš„å¹³é¢
 	int pos = getMaxPointCluster(cluster);
 	pcl::copyPointCloud(*in_pc, cluster[pos], *out_pc);
 

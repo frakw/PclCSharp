@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "pcl_util.h"
 #include <iostream>
@@ -9,49 +9,49 @@
 #include <pcl/sample_consensus/model_types.h>
 #include <pcl/sample_consensus/method_types.h>
 #include <pcl/segmentation/sac_segmentation.h>
-#include <pcl/segmentation/extract_clusters.h>//Å·Ê½¾ÛÀà
+#include <pcl/segmentation/extract_clusters.h>//æ¬§å¼èšç±»
 #include <pcl/ModelCoefficients.h>
 #include <set>
 
 /*
- * Copyright (c) 2022, ÊæµÇµÇ
+ * Copyright (c) 2022, èˆ’ç™»ç™»
  * All rights reserved.
- * Auther:ÊæµÇµÇ(ShuDengdeng)
+ * Auther:èˆ’ç™»ç™»(ShuDengdeng)
  * Email:2237380450@qq.com
- * µãÔÆ·Ö¸î¹¦ÄÜ
+ * ç‚¹äº‘åˆ†å‰²åŠŸèƒ½
  */
 
 
-//¶¨Òåµ¼³ö·½Ê½£ºÒÔCÓïÑÔµÄ·½Ê½µ¼³ö£¬ÒòÎªCÓïÑÔ·½Ê½º¯ÊıÃû±£³Ö²»±ä
+//å®šä¹‰å¯¼å‡ºæ–¹å¼ï¼šä»¥Cè¯­è¨€çš„æ–¹å¼å¯¼å‡ºï¼Œå› ä¸ºCè¯­è¨€æ–¹å¼å‡½æ•°åä¿æŒä¸å˜
 #define EXTERNC extern "C"
-//¶¨Òådllµ¼³ö·½Ê½£¬´Ë´¦ÊÇµ¼³ö£¬Èç¹ûÊÇµ¼ÈëÔòÎªdllinport
+//å®šä¹‰dllå¯¼å‡ºæ–¹å¼ï¼Œæ­¤å¤„æ˜¯å¯¼å‡ºï¼Œå¦‚æœæ˜¯å¯¼å…¥åˆ™ä¸ºdllinport
 #define HEAD EXTERNC __declspec(dllexport)
-//¶¨Òåµ÷ÓÃÔ¼¶¨£¬´Ë´¦Ñ¡Ôñ±ê×¼µ÷ÓÃÔ¼¶¨£¬Ò²¿ÉÒÔÓÃcµ÷ÓÃÔ¼¶¨
+//å®šä¹‰è°ƒç”¨çº¦å®šï¼Œæ­¤å¤„é€‰æ‹©æ ‡å‡†è°ƒç”¨çº¦å®šï¼Œä¹Ÿå¯ä»¥ç”¨cè°ƒç”¨çº¦å®š
 #define CallingConvention __stdcall
 
 /*
-¹¦ÄÜ£º·â×°ºóµÄÇøÓòÉú³¤£¬Ö±½Ó·µ»ØµãÊı×î¶àµÄ½á¹û
-param[in] in_pc Ä¿±êµãÔÆ¶ÔÏóÖ¸Õë
-param[in] neighbor_num ½üÁÚÊı£¬¸ù¾İµãµÄÊıÄ¿Ñ¡È¡ºÏÊÊµÄÁÚ¾ÓÊı
-param[in] smooth_thresh ·¨ÏòÁ¿ãĞÖµ
-param[in] curva_thresh ÇúÂÊãĞÖµ
-param[in] MinClusterSize ³ÉÎªÒ»¸öÀàµÄ×îĞ¡µãÊı
-param[in] MaxClusterSize ³ÉÎªÒ»¸öÀàµÄ×î´óµãÊı£¬
-ÕâÒâÎ¶×Å·Ö¸îºóµÄµãÔÆÊıÄ¿±ØĞëÔÚ[MinClusterSize,MaxClusterSize]Ö®¼ä²ÅÄÜ±»Êä³ö
-param[out] out_pc ½á¹ûµãÔÆµÄ¶ÔÏóÖ¸Õë
+åŠŸèƒ½ï¼šå°è£…åçš„åŒºåŸŸç”Ÿé•¿ï¼Œç›´æ¥è¿”å›ç‚¹æ•°æœ€å¤šçš„ç»“æœ
+param[in] in_pc ç›®æ ‡ç‚¹äº‘å¯¹è±¡æŒ‡é’ˆ
+param[in] neighbor_num è¿‘é‚»æ•°ï¼Œæ ¹æ®ç‚¹çš„æ•°ç›®é€‰å–åˆé€‚çš„é‚»å±…æ•°
+param[in] smooth_thresh æ³•å‘é‡é˜ˆå€¼
+param[in] curva_thresh æ›²ç‡é˜ˆå€¼
+param[in] MinClusterSize æˆä¸ºä¸€ä¸ªç±»çš„æœ€å°ç‚¹æ•°
+param[in] MaxClusterSize æˆä¸ºä¸€ä¸ªç±»çš„æœ€å¤§ç‚¹æ•°ï¼Œ
+è¿™æ„å‘³ç€åˆ†å‰²åçš„ç‚¹äº‘æ•°ç›®å¿…é¡»åœ¨[MinClusterSize,MaxClusterSize]ä¹‹é—´æ‰èƒ½è¢«è¾“å‡º
+param[out] out_pc ç»“æœç‚¹äº‘çš„å¯¹è±¡æŒ‡é’ˆ
 */
 HEAD void CallingConvention modifiedGrowRegion(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	int neighbor_num, float smooth_thresh, float curva_thresh,
 	int MinClusterSize, int MaxClusterSize,
 	pcl::PointCloud<pcl::PointXYZ> * out_pc);
 
-//Ô­Ê¼µÄÇøÓòÉú³¤
+//åŸå§‹çš„åŒºåŸŸç”Ÿé•¿
 HEAD void CallingConvention oriGrowRegion(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	int neighbor_num, float smooth_thresh, float curva_thresh,
 	int MinClusterSize, int MaxClusterSize,
 	vector<pcl::PointIndices> * out_indice);
 
-//Å·Ê½¾ÛÀà
+//æ¬§å¼èšç±»
 HEAD void CallingConvention euclideanCluster(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	double distance_thresh, int MinClusterSize, int MaxClusterSize,
 	vector<pcl::PointIndices> * out_indice);

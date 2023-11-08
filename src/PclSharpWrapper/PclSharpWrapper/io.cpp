@@ -1,4 +1,4 @@
-#include "io.h"
+ï»¿#include "io.h"
 
 void Pc2Array(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in, double * out_x, double * out_y, double * out_z)
 {
@@ -10,7 +10,7 @@ void Pc2Array(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in, double * out_x, doub
 
 	}
 }
-//¼ÓÔØµãÔÆÎÄ¼ş£¬º¯ÊıÆúÓÃ
+//åŠ è½½ç‚¹äº‘æ–‡ä»¶ï¼Œå‡½æ•°å¼ƒç”¨
 HEAD int CallingConvention loadFile(char * path, double * out_x, double * out_y, double * out_z)
 {
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
@@ -24,7 +24,7 @@ HEAD int CallingConvention loadFile(char * path, double * out_x, double * out_y,
 		return 1;
 	}
 }
-//¼ÓÔØplyÎÄ¼ş
+//åŠ è½½plyæ–‡ä»¶
 HEAD int CallingConvention loadPlyFile(char * path, pcl::PointCloud<pcl::PointXYZ>* pc)
 {
 	if (pcl::io::loadPLYFile(path, *pc) == -1)
@@ -36,7 +36,7 @@ HEAD int CallingConvention loadPlyFile(char * path, pcl::PointCloud<pcl::PointXY
 		return 1;
 	}
 }
-//¼ÓÔØpcdÎÄ¼ş
+//åŠ è½½pcdæ–‡ä»¶
 HEAD int CallingConvention loadPcdFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc)
 {
 	if (pcl::io::loadPCDFile(path, *pc) == -1)
@@ -49,11 +49,11 @@ HEAD int CallingConvention loadPcdFile(char* path, pcl::PointCloud<pcl::PointXYZ
 	}
 
 }
-//¼ÓÔØobj
+//åŠ è½½obj
 HEAD int CallingConvention loadObjFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc)
 {
-	//²»ÄÜÖ±½ÓÊ¹ÓÃpcl::io::loadOBJFileÕâ¸öº¯Êı£¬Ó¦¸ÃÏÈÓÃloadPolygonFile°ÉÎÄ¼ş¼ÓÔØ½øPolygonMesh
-	//ÔÙÓÃfromPCLPointCloud2½øĞĞ×ª»»¡£Ö±½ÓÊ¹ÓÃpcl::io::loadOBJFile»á±¨´í
+	//ä¸èƒ½ç›´æ¥ä½¿ç”¨pcl::io::loadOBJFileè¿™ä¸ªå‡½æ•°ï¼Œåº”è¯¥å…ˆç”¨loadPolygonFileå§æ–‡ä»¶åŠ è½½è¿›PolygonMesh
+	//å†ç”¨fromPCLPointCloud2è¿›è¡Œè½¬æ¢ã€‚ç›´æ¥ä½¿ç”¨pcl::io::loadOBJFileä¼šæŠ¥é”™
 	pcl::PolygonMesh mesh;
 
 	if (pcl::io::loadPolygonFile(path, mesh) < 0)
@@ -68,7 +68,7 @@ HEAD int CallingConvention loadObjFile(char* path, pcl::PointCloud<pcl::PointXYZ
 	}
 
 }
-//¼ÓÔØtxtÎÄ¼ş
+//åŠ è½½txtæ–‡ä»¶
 HEAD int CallingConvention loadTxtFile(char * path, pcl::PointCloud<pcl::PointXYZ>* pc)
 {
 	
@@ -76,9 +76,9 @@ HEAD int CallingConvention loadTxtFile(char * path, pcl::PointCloud<pcl::PointXY
 	pcl::PointXYZ tmpoint;
 	if (Points_in.is_open())
 	{
-		while (!Points_in.eof())   //ÉĞÎ´µ½´ïÎÄ¼ş½áÎ²
+		while (!Points_in.eof())   //å°šæœªåˆ°è¾¾æ–‡ä»¶ç»“å°¾
 		{
-			//>>²Ù×÷·û»áºöÂÔ¿Õ°×·ûºÍ»»ĞĞ·û
+			//>>æ“ä½œç¬¦ä¼šå¿½ç•¥ç©ºç™½ç¬¦å’Œæ¢è¡Œç¬¦
 			Points_in >> tmpoint.x >> tmpoint.y >> tmpoint.z;
 			pc->points.push_back(tmpoint);
 		}
@@ -93,7 +93,7 @@ HEAD int CallingConvention loadTxtFile(char * path, pcl::PointCloud<pcl::PointXY
 	
 }
 
-//±£´æpcdÎÄ¼ş
+//ä¿å­˜pcdæ–‡ä»¶
 HEAD void CallingConvention savePcdFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc, int binaryMode)
 {
 	if (binaryMode >= 1)
@@ -106,7 +106,7 @@ HEAD void CallingConvention savePcdFile(char* path, pcl::PointCloud<pcl::PointXY
 	}
 
 }
-//±£´æplyÎÄ¼ş
+//ä¿å­˜plyæ–‡ä»¶
 HEAD void CallingConvention savePlyFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc, int binaryMode)
 {
 	if (binaryMode >= 1)
@@ -119,15 +119,15 @@ HEAD void CallingConvention savePlyFile(char* path, pcl::PointCloud<pcl::PointXY
 	}
 
 }
-//±£´æobjÎÄ¼ş
+//ä¿å­˜objæ–‡ä»¶
 
 HEAD void CallingConvention saveObjFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc)
 {
-	//TODO Ìí¼Ó½«µãÔÆ¶ÔÏó±£´æÎªobj¸ñÊ½µÄ´úÂë
+	//TODO æ·»åŠ å°†ç‚¹äº‘å¯¹è±¡ä¿å­˜ä¸ºobjæ ¼å¼çš„ä»£ç 
 
 }
 
-//stl×ªÎªµãÔÆ¶ÔÏó
+//stlè½¬ä¸ºç‚¹äº‘å¯¹è±¡
 HEAD void CallingConvention stl2PointCloud(char * path, pcl::PointCloud<pcl::PointXYZ>* pc)
 {
 	vtkSmartPointer<vtkSTLReader> stlreader = vtkSmartPointer<vtkSTLReader>::New();

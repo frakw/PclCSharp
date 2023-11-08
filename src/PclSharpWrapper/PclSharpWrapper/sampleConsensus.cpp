@@ -1,14 +1,14 @@
-#include "sampleConsensus.h"
+ï»¿#include "sampleConsensus.h"
 
 /*
- * Copyright (c) 2022, ÊæµÇµÇ
+ * Copyright (c) 2022, èˆ’ç™»ç™»
  * All rights reserved.
- * Auther:ÊæµÇµÇ(ShuDengdeng)
+ * Auther:èˆ’ç™»ç™»(ShuDengdeng)
  * Email:2237380450@qq.com
- * Ëæ»ú³éÑùÒ»ÖÂĞÔÄ£¿é
+ * éšæœºæŠ½æ ·ä¸€è‡´æ€§æ¨¡å—
  */
 
-//ÄâºÏÆ½Ãæ
+//æ‹Ÿåˆå¹³é¢
 HEAD float CallingConvention fitPlane(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	float distance_thresh, int max_itera, float * normal)
 {
@@ -24,9 +24,9 @@ HEAD float CallingConvention fitPlane(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	seg.setOptimizeCoefficients(true);
 	seg.segment(*pointIndices, *modelCoeff);
 
-	double line1[3] = { 0,0,1 };//²Î¿¼Æ½ÃæÏòÁ¿
-	double line2[3] = { modelCoeff->values[0],modelCoeff->values[1],modelCoeff->values[2] };//ÄâºÏÆ½ÃæÏòÁ¿
-	angel = getAngle(line1, line2);//»ñÈ¡Á½ÏòÁ¿¼äµÄ¼Ğ½Ç
+	double line1[3] = { 0,0,1 };//å‚è€ƒå¹³é¢å‘é‡
+	double line2[3] = { modelCoeff->values[0],modelCoeff->values[1],modelCoeff->values[2] };//æ‹Ÿåˆå¹³é¢å‘é‡
+	angel = getAngle(line1, line2);//è·å–ä¸¤å‘é‡é—´çš„å¤¹è§’
 	normal[0] = modelCoeff->values[0];
 	normal[1] = modelCoeff->values[1];
 	normal[2] = modelCoeff->values[2];

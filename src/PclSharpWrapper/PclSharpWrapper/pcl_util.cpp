@@ -1,21 +1,21 @@
-#include "pcl_util.h"
+ï»¿#include "pcl_util.h"
 
 
 /*
- * Copyright (c) 2022, ÊæµÇµÇ
+ * Copyright (c) 2022, èˆ’ç™»ç™»
  * All rights reserved.
- * Auther:ÊæµÇµÇ(ShuDengdeng)
+ * Auther:èˆ’ç™»ç™»(ShuDengdeng)
  * Email:2237380450@qq.com
- * µãÔÆ´¦ÀíµÄÒ»Ğ©¹¤¾ßº¯Êı£¬²»Ìá¹©¶ÔÍâ½Ó¿Ú
+ * ç‚¹äº‘å¤„ç†çš„ä¸€äº›å·¥å…·å‡½æ•°ï¼Œä¸æä¾›å¯¹å¤–æ¥å£
  */
 
-//ÓÃÓÚÇøÓòÉú³¤£¬½«µãÊı×î¶àµÄµã´ØµÄË÷Òı·µ»Ø
+//ç”¨äºåŒºåŸŸç”Ÿé•¿ï¼Œå°†ç‚¹æ•°æœ€å¤šçš„ç‚¹ç°‡çš„ç´¢å¼•è¿”å›
 int getMaxPointCluster(vector<pcl::PointIndices> cluster)
 {
 	int i = 0;
 	int pos = 0;
 	int max = 0;
-	//µü´úÆ÷´ú±íÏòÁ¿×éÖĞµÄÔªËØ£¬±ÈÈç±¾¾äÖĞµÄµü´úÆ÷it¾Í´ú±íÒ»¸öpcl::pointindices
+	//è¿­ä»£å™¨ä»£è¡¨å‘é‡ç»„ä¸­çš„å…ƒç´ ï¼Œæ¯”å¦‚æœ¬å¥ä¸­çš„è¿­ä»£å™¨itå°±ä»£è¡¨ä¸€ä¸ªpcl::pointindices
 	for (vector<pcl::PointIndices>::iterator it = cluster.begin(); it != cluster.end(); ++it)
 	{
 		if (it->indices.size() > max)
@@ -27,7 +27,7 @@ int getMaxPointCluster(vector<pcl::PointIndices> cluster)
 	}
 	return pos;
 }
-//ÓÃÓÚÆ½ÃæÄâºÏÖĞ»ñµÃÄâºÏºóµÄÆ½ÃæÓëxy²Î¿¼ÃæµÄÇãĞ±½Ç
+//ç”¨äºå¹³é¢æ‹Ÿåˆä¸­è·å¾—æ‹Ÿåˆåçš„å¹³é¢ä¸xyå‚è€ƒé¢çš„å€¾æ–œè§’
 double getAngle(double line1[3], double line2[3])
 {
 	double cos = abs(line1[0] * line2[0] + line1[1] * line2[1] + line1[2] * line2[2]) /
@@ -36,17 +36,17 @@ double getAngle(double line1[3], double line2[3])
 
 	return deg * 180 / 3.1415926;
 }
-//ÓÃÓÚ»ñÈ¡Á½ÏòÁ¿µÄ±äĞı×ª»»¾ØÕó
+//ç”¨äºè·å–ä¸¤å‘é‡çš„å˜æ—‹è½¬æ¢çŸ©é˜µ
 Eigen::Matrix4f getRotationMatrix(Eigen::Vector3f vector_before, Eigen::Vector3f vector_after)
 {
 	vector_before.normalize();
 	vector_after.normalize();
-	float angle = acos(vector_before.dot(vector_after));//µã»ı£¬µÃµ½Á½ÏòÁ¿µÄ¼Ğ½Ç
-	Eigen::Vector3f p_rotate = vector_before.cross(vector_after);//²æ»ı£¬µÃµ½µÄ»¹ÊÇÏòÁ¿
-	p_rotate.normalize();//¸ÃÏòÁ¿µÄµ¥Î»ÏòÁ¿£¬¼´Ğı×ªÖáµÄµ¥Î»ÏòÁ¿
+	float angle = acos(vector_before.dot(vector_after));//ç‚¹ç§¯ï¼Œå¾—åˆ°ä¸¤å‘é‡çš„å¤¹è§’
+	Eigen::Vector3f p_rotate = vector_before.cross(vector_after);//å‰ç§¯ï¼Œå¾—åˆ°çš„è¿˜æ˜¯å‘é‡
+	p_rotate.normalize();//è¯¥å‘é‡çš„å•ä½å‘é‡ï¼Œå³æ—‹è½¬è½´çš„å•ä½å‘é‡
 	Eigen::Matrix4f rotationMatrix = Eigen::Matrix4f::Identity();
 	rotationMatrix(0, 0) = cos(angle) + p_rotate[0] * p_rotate[0] * (1 - cos(angle));
-	rotationMatrix(0, 1) = p_rotate[0] * p_rotate[1] * (1 - cos(angle) - p_rotate[2] * sin(angle));//ÕâÀï¸ú¹«Ê½±È¶àÁËÒ»¸öÀ¨ºÅ£¬µ«ÊÇ¿´ÊµÑé½á¹ûËüÊÇ¶ÔµÄ¡£
+	rotationMatrix(0, 1) = p_rotate[0] * p_rotate[1] * (1 - cos(angle) - p_rotate[2] * sin(angle));//è¿™é‡Œè·Ÿå…¬å¼æ¯”å¤šäº†ä¸€ä¸ªæ‹¬å·ï¼Œä½†æ˜¯çœ‹å®éªŒç»“æœå®ƒæ˜¯å¯¹çš„ã€‚
 	rotationMatrix(0, 2) = p_rotate[1] * sin(angle) + p_rotate[0] * p_rotate[2] * (1 - cos(angle));
 
 	rotationMatrix(1, 0) = p_rotate[2] * sin(angle) + p_rotate[0] * p_rotate[1] * (1 - cos(angle));
@@ -58,7 +58,7 @@ Eigen::Matrix4f getRotationMatrix(Eigen::Vector3f vector_before, Eigen::Vector3f
 	rotationMatrix(2, 2) = cos(angle) + p_rotate[2] * p_rotate[2] * (1 - cos(angle));
 	return rotationMatrix;
 }
-//½«ÏòÁ¿µãÔÆÁ¬½ÓÎªµãÔÆ¶ÔÏó
+//å°†å‘é‡ç‚¹äº‘è¿æ¥ä¸ºç‚¹äº‘å¯¹è±¡
 void connect_pc(vector<pcl::PointCloud<pcl::PointXYZ>>& input_pc1, pcl::PointCloud<pcl::PointXYZ> & out_cloud)
 {
 	for (int i = 0; i < input_pc1.size(); i++)
@@ -67,14 +67,14 @@ void connect_pc(vector<pcl::PointCloud<pcl::PointXYZ>>& input_pc1, pcl::PointClo
 	}
 }
 
-//º¯ÊıÖØÔØ£¬3Î÷¸ñÂê·¨ÔòÌŞ³ıÒì³£Öµ£¬ÊäÈëÊÇµãÔÆ£¬Êä³öÊÇµãÔÆÏòÁ¿
+//å‡½æ•°é‡è½½ï¼Œ3è¥¿æ ¼ç›æ³•åˆ™å‰”é™¤å¼‚å¸¸å€¼ï¼Œè¾“å…¥æ˜¯ç‚¹äº‘ï¼Œè¾“å‡ºæ˜¯ç‚¹äº‘å‘é‡
 void stdDev_filter(vector<pcl::PointCloud<pcl::PointXYZ>>& input_cloud, vector<pcl::PointCloud<pcl::PointXYZ>>& out_cloud)
 {
 	double mean = 0;
 	double stdDev = 0;
 	vector<float> vec_z;
 	out_cloud.resize(input_cloud.size());
-	//¼ÆËãµãÔÆµÄ¾ùÖµºÍ±ê×¼²î
+	//è®¡ç®—ç‚¹äº‘çš„å‡å€¼å’Œæ ‡å‡†å·®
 	for (int i = 0; i < input_cloud.size(); i++)
 	{
 		for (int k = 0; k < input_cloud[i].points.size(); k++)
@@ -84,12 +84,12 @@ void stdDev_filter(vector<pcl::PointCloud<pcl::PointXYZ>>& input_cloud, vector<p
 
 	}
 	pcl::getMeanStdDev(vec_z, mean, stdDev);
-	//ÒÔ2Î÷¸ñÂê×¼ÔòÌŞ³ıµã
+	//ä»¥2è¥¿æ ¼ç›å‡†åˆ™å‰”é™¤ç‚¹
 	for (int j = 0; j < input_cloud.size(); j++)
 	{
 		for (int d = 0; d < input_cloud[j].points.size(); d++)
 		{
-			//ÓĞ¿ÉÄÜ»á³öÏÖÄ³ÌõÏßµÄµãÈ«²¿±»ÌŞ³ıµÄÇé¿ö£¬ÕâÊ±ºò¸ÃµãÔÆÃ»ÓĞµã»á²»»á±¨´í
+			//æœ‰å¯èƒ½ä¼šå‡ºç°æŸæ¡çº¿çš„ç‚¹å…¨éƒ¨è¢«å‰”é™¤çš„æƒ…å†µï¼Œè¿™æ—¶å€™è¯¥ç‚¹äº‘æ²¡æœ‰ç‚¹ä¼šä¸ä¼šæŠ¥é”™
 			if (fabs(input_cloud[j].points[d].z - mean) < 2 * stdDev)
 			{
 				out_cloud[j].push_back(input_cloud[j].points[d]);

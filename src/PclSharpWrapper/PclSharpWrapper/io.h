@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <pcl/io/ply_io.h>
 #include <iostream>
 #include <pcl/io/pcd_io.h>
@@ -6,7 +6,7 @@
 #include <vtkSTLReader.h>
 #include <vtkPolyData.h>
 #include <pcl/io/vtk_io.h>
-#include <pcl/io/vtk_lib_io.h>//°üº¬vtkpolydata×ªµãÔÆº¯Êı
+#include <pcl/io/vtk_lib_io.h>//åŒ…å«vtkpolydataè½¬ç‚¹äº‘å‡½æ•°
 #include <pcl/io/obj_io.h>
 #include <pcl/common/transforms.h>
 #include <pcl/common/common.h>
@@ -14,97 +14,97 @@
 
 
 /*
- * Copyright (c) 2022, ÊæµÇµÇ
+ * Copyright (c) 2022, èˆ’ç™»ç™»
  * All rights reserved.
- * Auther:ÊæµÇµÇ(ShuDengdeng)
+ * Auther:èˆ’ç™»ç™»(ShuDengdeng)
  * Email:2237380450@qq.com
- * 2022626,µãÔÆÊäÈëÊä³ö¹¦ÄÜ
+ * 2022626,ç‚¹äº‘è¾“å…¥è¾“å‡ºåŠŸèƒ½
  */
 
 using namespace std;
-//¶¨Òåµ¼³ö·½Ê½£ºÒÔCÓïÑÔµÄ·½Ê½µ¼³ö£¬ÒòÎªCÓïÑÔ·½Ê½º¯ÊıÃû±£³Ö²»±ä
+//å®šä¹‰å¯¼å‡ºæ–¹å¼ï¼šä»¥Cè¯­è¨€çš„æ–¹å¼å¯¼å‡ºï¼Œå› ä¸ºCè¯­è¨€æ–¹å¼å‡½æ•°åä¿æŒä¸å˜
 #define EXTERNC extern "C"
-//¶¨Òådllµ¼³ö·½Ê½£¬´Ë´¦ÊÇµ¼³ö£¬Èç¹ûÊÇµ¼ÈëÔòÎªdllinport
+//å®šä¹‰dllå¯¼å‡ºæ–¹å¼ï¼Œæ­¤å¤„æ˜¯å¯¼å‡ºï¼Œå¦‚æœæ˜¯å¯¼å…¥åˆ™ä¸ºdllinport
 #define HEAD EXTERNC __declspec(dllexport)
-//¶¨Òåµ÷ÓÃÔ¼¶¨£¬´Ë´¦Ñ¡Ôñ±ê×¼µ÷ÓÃÔ¼¶¨£¬Ò²¿ÉÒÔÓÃcµ÷ÓÃÔ¼¶¨
+//å®šä¹‰è°ƒç”¨çº¦å®šï¼Œæ­¤å¤„é€‰æ‹©æ ‡å‡†è°ƒç”¨çº¦å®šï¼Œä¹Ÿå¯ä»¥ç”¨cè°ƒç”¨çº¦å®š
 #define CallingConvention __stdcall
 
 
 /*
-¹¦ÄÜ£º½«pointcloud½á¹¹ÓÃÈı¸öÊı×é´æ´¢,ÕâÊÇ×îÔ­Ê¼µÄ·½Ê½£¬ºóÃæ½«µãÔÆ¶ÔÏó·â×°ÁË£¬Õâ·½·¨ÆúÓÃÁË
+åŠŸèƒ½ï¼šå°†pointcloudç»“æ„ç”¨ä¸‰ä¸ªæ•°ç»„å­˜å‚¨,è¿™æ˜¯æœ€åŸå§‹çš„æ–¹å¼ï¼Œåé¢å°†ç‚¹äº‘å¯¹è±¡å°è£…äº†ï¼Œè¿™æ–¹æ³•å¼ƒç”¨äº†
 */
 void Pc2Array(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in, double * out_x, double * out_y, double * out_z);
 
 /*
-¹¦ÄÜ£º¼ÓÔØply¡¢pcd¸ñÊ½µãÔÆÎÄ¼ş£¬²¢½«µãÔÆÖĞµÄX¡¢YºÍZ×ø±ê´æ´¢ÔÚÈı¸ödoubleÊı×éÖĞ,º¯ÊıÆúÓÃ
-param[in] path µãÔÆÎÄ¼şÂ·¾¶
-param[out] out_x ËùÓĞµãµÄX×ø±ê
-param[out] out_y ËùÓĞµãµÄY×ø±ê
-param[out] out_z ËùÓĞµãµÄZ×ø±ê
-³É¹¦¼ÓÔØÎÄ¼ş·µ»Ø1£¬Ê§°ÜÔò·µ»Ø0
+åŠŸèƒ½ï¼šåŠ è½½plyã€pcdæ ¼å¼ç‚¹äº‘æ–‡ä»¶ï¼Œå¹¶å°†ç‚¹äº‘ä¸­çš„Xã€Yå’ŒZåæ ‡å­˜å‚¨åœ¨ä¸‰ä¸ªdoubleæ•°ç»„ä¸­,å‡½æ•°å¼ƒç”¨
+param[in] path ç‚¹äº‘æ–‡ä»¶è·¯å¾„
+param[out] out_x æ‰€æœ‰ç‚¹çš„Xåæ ‡
+param[out] out_y æ‰€æœ‰ç‚¹çš„Yåæ ‡
+param[out] out_z æ‰€æœ‰ç‚¹çš„Zåæ ‡
+æˆåŠŸåŠ è½½æ–‡ä»¶è¿”å›1ï¼Œå¤±è´¥åˆ™è¿”å›0
 */
 HEAD int CallingConvention loadFile(char* path, double * out_x, double * out_y, double * out_z);
 
 /*
-¹¦ÄÜ£º¼ÓÔØply¸ñÊ½µãÔÆÎÄ¼ş£¬²¢½«µãÔÆ´æÔÚPointCloud¶ÔÏóÖĞ
-param[in] path µãÔÆÎÄ¼şÂ·¾¶
-param[out] pc µãÔÆ¶ÔÏó
-³É¹¦¼ÓÔØÎÄ¼ş·µ»Ø1£¬Ê§°ÜÔò·µ»Ø0
+åŠŸèƒ½ï¼šåŠ è½½plyæ ¼å¼ç‚¹äº‘æ–‡ä»¶ï¼Œå¹¶å°†ç‚¹äº‘å­˜åœ¨PointCloudå¯¹è±¡ä¸­
+param[in] path ç‚¹äº‘æ–‡ä»¶è·¯å¾„
+param[out] pc ç‚¹äº‘å¯¹è±¡
+æˆåŠŸåŠ è½½æ–‡ä»¶è¿”å›1ï¼Œå¤±è´¥åˆ™è¿”å›0
 */
 HEAD int CallingConvention loadPlyFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc);
 
 /*
-¹¦ÄÜ£º¼ÓÔØpcd¸ñÊ½µãÔÆÎÄ¼ş£¬²¢½«µãÔÆ´æÔÚPointCloud¶ÔÏóÖĞ
-param[in] path µãÔÆÎÄ¼şÂ·¾¶
-param[out] pc µãÔÆ¶ÔÏó
-³É¹¦¼ÓÔØÎÄ¼ş·µ»Ø1£¬Ê§°ÜÔò·µ»Ø0
+åŠŸèƒ½ï¼šåŠ è½½pcdæ ¼å¼ç‚¹äº‘æ–‡ä»¶ï¼Œå¹¶å°†ç‚¹äº‘å­˜åœ¨PointCloudå¯¹è±¡ä¸­
+param[in] path ç‚¹äº‘æ–‡ä»¶è·¯å¾„
+param[out] pc ç‚¹äº‘å¯¹è±¡
+æˆåŠŸåŠ è½½æ–‡ä»¶è¿”å›1ï¼Œå¤±è´¥åˆ™è¿”å›0
 */
 HEAD int CallingConvention loadPcdFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc);
 
 /*
-¹¦ÄÜ£º¼ÓÔØobjÎÄ¼ş
-param[in] path ÎÄ¼şÂ·¾¶
-param[out] pc µãÔÆ¶ÔÏó
-³É¹¦¼ÓÔØÎÄ¼ş·µ»Ø1£¬Ê§°ÜÔò·µ»Ø0
+åŠŸèƒ½ï¼šåŠ è½½objæ–‡ä»¶
+param[in] path æ–‡ä»¶è·¯å¾„
+param[out] pc ç‚¹äº‘å¯¹è±¡
+æˆåŠŸåŠ è½½æ–‡ä»¶è¿”å›1ï¼Œå¤±è´¥åˆ™è¿”å›0
 */
 HEAD int CallingConvention loadObjFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc);
 
 /*
-¹¦ÄÜ£º¼ÓÔØtxtÎÄ¼ş
-param[in] path ÎÄ¼şÂ·¾¶
-param[out] pc µãÔÆ¶ÔÏó
-³É¹¦¼ÓÔØÎÄ¼ş·µ»Ø1£¬Ê§°ÜÔò·µ»Ø0
+åŠŸèƒ½ï¼šåŠ è½½txtæ–‡ä»¶
+param[in] path æ–‡ä»¶è·¯å¾„
+param[out] pc ç‚¹äº‘å¯¹è±¡
+æˆåŠŸåŠ è½½æ–‡ä»¶è¿”å›1ï¼Œå¤±è´¥åˆ™è¿”å›0
 */
 HEAD int CallingConvention loadTxtFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc);
 
 
 /*
-¹¦ÄÜ£º±£´æpcd¸ñÊ½µãÔÆÎÄ¼ş
-param[in] path µãÔÆÎÄ¼şÂ·¾¶
-param[out] pc µãÔÆ¶ÔÏó
-³É¹¦¼ÓÔØÎÄ¼ş·µ»Ø1£¬Ê§°ÜÔò·µ»Ø0
+åŠŸèƒ½ï¼šä¿å­˜pcdæ ¼å¼ç‚¹äº‘æ–‡ä»¶
+param[in] path ç‚¹äº‘æ–‡ä»¶è·¯å¾„
+param[out] pc ç‚¹äº‘å¯¹è±¡
+æˆåŠŸåŠ è½½æ–‡ä»¶è¿”å›1ï¼Œå¤±è´¥åˆ™è¿”å›0
 */
 HEAD void CallingConvention savePcdFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc, int binaryMode);
 
 /*
-¹¦ÄÜ£º±£´æply¸ñÊ½µãÔÆÎÄ¼ş
-param[in] path µãÔÆÎÄ¼şÂ·¾¶
-param[out] pc µãÔÆ¶ÔÏó
-³É¹¦¼ÓÔØÎÄ¼ş·µ»Ø1£¬Ê§°ÜÔò·µ»Ø0
+åŠŸèƒ½ï¼šä¿å­˜plyæ ¼å¼ç‚¹äº‘æ–‡ä»¶
+param[in] path ç‚¹äº‘æ–‡ä»¶è·¯å¾„
+param[out] pc ç‚¹äº‘å¯¹è±¡
+æˆåŠŸåŠ è½½æ–‡ä»¶è¿”å›1ï¼Œå¤±è´¥åˆ™è¿”å›0
 */
 HEAD void CallingConvention savePlyFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc, int binaryMode);
 
 /*
-¹¦ÄÜ£º½«stl¸ñÊ½ÎÄ¼ş×ªÎªµãÔÆ¶ÔÏó
-param[in] path stl¸ñÊ½ÎÄ¼şÂ·¾¶
-param[out] pc µãÔÆ¶ÔÏó
+åŠŸèƒ½ï¼šå°†stlæ ¼å¼æ–‡ä»¶è½¬ä¸ºç‚¹äº‘å¯¹è±¡
+param[in] path stlæ ¼å¼æ–‡ä»¶è·¯å¾„
+param[out] pc ç‚¹äº‘å¯¹è±¡
 */
 HEAD void CallingConvention stl2PointCloud(char* path, pcl::PointCloud<pcl::PointXYZ> * pc);
 
 /*
-//TODO ÔİÎ´ÊµÏÖ¸Ã¹¦ÄÜ 2022620
-¹¦ÄÜ£ºµãÔÆ´æÎªobj¸ñÊ½
-param[in] path ´æ´¢Â·¾¶
-param[out] pc ´ı´æµãÔÆ¶ÔÏó
+//TODO æš‚æœªå®ç°è¯¥åŠŸèƒ½ 2022620
+åŠŸèƒ½ï¼šç‚¹äº‘å­˜ä¸ºobjæ ¼å¼
+param[in] path å­˜å‚¨è·¯å¾„
+param[out] pc å¾…å­˜ç‚¹äº‘å¯¹è±¡
 */
 HEAD void CallingConvention saveObjFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc);

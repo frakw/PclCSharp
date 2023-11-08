@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 
 #include "pcl_util.h"
 #include <pcl/sample_consensus/model_types.h>
 #include <pcl/sample_consensus/method_types.h>
 #include <pcl/segmentation/sac_segmentation.h>
-#include <pcl/segmentation/extract_clusters.h>//Å·Ê½¾ÛÀà
+#include <pcl/segmentation/extract_clusters.h>//æ¬§å¼èšç±»
 #include <pcl/ModelCoefficients.h>
 #include <pcl/common/transforms.h>
 #include <pcl/common/common.h>
@@ -12,19 +12,19 @@
 #include <set>
 
 /*
- * Copyright (c) 2022, ÊæµÇµÇ
+ * Copyright (c) 2022, èˆ’ç™»ç™»
  * All rights reserved.
- * Auther:ÊæµÇµÇ(ShuDengdeng)
+ * Auther:èˆ’ç™»ç™»(ShuDengdeng)
  * Email:2237380450@qq.com
- * Ëæ»ú³éÑùÒ»ÖÂĞÔÄ£¿é
+ * éšæœºæŠ½æ ·ä¸€è‡´æ€§æ¨¡å—
  */
 
 using namespace std;
-//¶¨Òåµ¼³ö·½Ê½£ºÒÔCÓïÑÔµÄ·½Ê½µ¼³ö£¬ÒòÎªCÓïÑÔ·½Ê½º¯ÊıÃû±£³Ö²»±ä
+//å®šä¹‰å¯¼å‡ºæ–¹å¼ï¼šä»¥Cè¯­è¨€çš„æ–¹å¼å¯¼å‡ºï¼Œå› ä¸ºCè¯­è¨€æ–¹å¼å‡½æ•°åä¿æŒä¸å˜
 #define EXTERNC extern "C"
-//¶¨Òådllµ¼³ö·½Ê½£¬´Ë´¦ÊÇµ¼³ö£¬Èç¹ûÊÇµ¼ÈëÔòÎªdllinport
+//å®šä¹‰dllå¯¼å‡ºæ–¹å¼ï¼Œæ­¤å¤„æ˜¯å¯¼å‡ºï¼Œå¦‚æœæ˜¯å¯¼å…¥åˆ™ä¸ºdllinport
 #define HEAD EXTERNC __declspec(dllexport)
-//¶¨Òåµ÷ÓÃÔ¼¶¨£¬´Ë´¦Ñ¡Ôñ±ê×¼µ÷ÓÃÔ¼¶¨£¬Ò²¿ÉÒÔÓÃcµ÷ÓÃÔ¼¶¨
+//å®šä¹‰è°ƒç”¨çº¦å®šï¼Œæ­¤å¤„é€‰æ‹©æ ‡å‡†è°ƒç”¨çº¦å®šï¼Œä¹Ÿå¯ä»¥ç”¨cè°ƒç”¨çº¦å®š
 #define CallingConvention __stdcall
 
 
@@ -32,11 +32,11 @@ using namespace std;
 
 
 /*
-¹¦ÄÜ£ºÊ¹ÓÃRansacËã·¨ÄâºÏ·Ö¸îºóµãÔÆµÄÆ½Ãæ£¬²¢·µ»ØÆ½ÃæÇãĞ±½Ç¶È
-param[in] in_pc Ä¿±êµãÔÆ¶ÔÏóÖ¸Õë
-param[in] distance_thresh RansacËã·¨¾àÀëãĞÖµ
-param[in] max_itera RansacËã·¨×î´óµü´ú´ÎÊı
-param[out] normal ÄâºÏÆ½ÃæµÄ·½³ÌÏµÊı£¬ÒÀ´Î°üº¬a¡¢b¡¢c¡¢dËÄ¸öÖµ¡£·½³ÌĞÎÊ½Îªax+by+cz+d=0
+åŠŸèƒ½ï¼šä½¿ç”¨Ransacç®—æ³•æ‹Ÿåˆåˆ†å‰²åç‚¹äº‘çš„å¹³é¢ï¼Œå¹¶è¿”å›å¹³é¢å€¾æ–œè§’åº¦
+param[in] in_pc ç›®æ ‡ç‚¹äº‘å¯¹è±¡æŒ‡é’ˆ
+param[in] distance_thresh Ransacç®—æ³•è·ç¦»é˜ˆå€¼
+param[in] max_itera Ransacç®—æ³•æœ€å¤§è¿­ä»£æ¬¡æ•°
+param[out] normal æ‹Ÿåˆå¹³é¢çš„æ–¹ç¨‹ç³»æ•°ï¼Œä¾æ¬¡åŒ…å«aã€bã€cã€då››ä¸ªå€¼ã€‚æ–¹ç¨‹å½¢å¼ä¸ºax+by+cz+d=0
 */
 HEAD float CallingConvention fitPlane(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	                                  float distance_thresh, int max_itera, float * normal);

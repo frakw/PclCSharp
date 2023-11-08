@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 #include <pcl/filters/uniform_sampling.h>
 #include <pcl/filters/radius_outlier_removal.h>
@@ -13,78 +13,78 @@
 
 
 /*
- * Copyright (c) 2022, ÊæµÇµÇ
+ * Copyright (c) 2022, èˆ’ç™»ç™»
  * All rights reserved.
- * Auther:ÊæµÇµÇ(ShuDengdeng)
+ * Auther:èˆ’ç™»ç™»(ShuDengdeng)
  * Email:2237380450@qq.com
- * 2022626,µãÔÆÂË²¨¹¦ÄÜ
+ * 2022626,ç‚¹äº‘æ»¤æ³¢åŠŸèƒ½
  */
 
 using namespace std;
-//¶¨Òåµ¼³ö·½Ê½£ºÒÔCÓïÑÔµÄ·½Ê½µ¼³ö£¬ÒòÎªCÓïÑÔ·½Ê½º¯ÊıÃû±£³Ö²»±ä
+//å®šä¹‰å¯¼å‡ºæ–¹å¼ï¼šä»¥Cè¯­è¨€çš„æ–¹å¼å¯¼å‡ºï¼Œå› ä¸ºCè¯­è¨€æ–¹å¼å‡½æ•°åä¿æŒä¸å˜
 #define EXTERNC extern "C"
-//¶¨Òådllµ¼³ö·½Ê½£¬´Ë´¦ÊÇµ¼³ö£¬Èç¹ûÊÇµ¼ÈëÔòÎªdllinport
+//å®šä¹‰dllå¯¼å‡ºæ–¹å¼ï¼Œæ­¤å¤„æ˜¯å¯¼å‡ºï¼Œå¦‚æœæ˜¯å¯¼å…¥åˆ™ä¸ºdllinport
 #define HEAD EXTERNC __declspec(dllexport)
-//¶¨Òåµ÷ÓÃÔ¼¶¨£¬´Ë´¦Ñ¡Ôñ±ê×¼µ÷ÓÃÔ¼¶¨£¬Ò²¿ÉÒÔÓÃcµ÷ÓÃÔ¼¶¨
+//å®šä¹‰è°ƒç”¨çº¦å®šï¼Œæ­¤å¤„é€‰æ‹©æ ‡å‡†è°ƒç”¨çº¦å®šï¼Œä¹Ÿå¯ä»¥ç”¨cè°ƒç”¨çº¦å®š
 #define CallingConvention __stdcall
 
 /*
-¹¦ÄÜ£º¶ÔµãÔÆ½øĞĞÌåËØÏÂ²ÉÑù
-param[in] in_pc Ä¿±êµãÔÆ¶ÔÏóµÄÖ¸Õë
-param[in] leaf_size ÌåËØÏÂ²ÉÑùÒ¶×Ó³ß´ç£¬¸ÃÖµÔ½´ó£¬Ôò²ÉÑùºóµãÔÆÔ½Ï¡Êè
-param[out] out_pc ½á¹ûµãÔÆ¶ÔÏóµÄÖ¸Õë
+åŠŸèƒ½ï¼šå¯¹ç‚¹äº‘è¿›è¡Œä½“ç´ ä¸‹é‡‡æ ·
+param[in] in_pc ç›®æ ‡ç‚¹äº‘å¯¹è±¡çš„æŒ‡é’ˆ
+param[in] leaf_size ä½“ç´ ä¸‹é‡‡æ ·å¶å­å°ºå¯¸ï¼Œè¯¥å€¼è¶Šå¤§ï¼Œåˆ™é‡‡æ ·åç‚¹äº‘è¶Šç¨€ç–
+param[out] out_pc ç»“æœç‚¹äº‘å¯¹è±¡çš„æŒ‡é’ˆ
 */
 HEAD void CallingConvention voxelDownSample(pcl::PointCloud<pcl::PointXYZ> * in_pc, double leaf_size,
 	                                        pcl::PointCloud<pcl::PointXYZ> * out_pc);
 
 /*
-¹¦ÄÜ£º¶ÔµãÔÆ½øĞĞ½üËÆÌåËØÏÂ²ÉÑù
-param[in] in_pc Ä¿±êµãÔÆ¶ÔÏóµÄÖ¸Õë
-param[in] leaf_size ÌåËØÏÂ²ÉÑùÒ¶×Ó³ß´ç£¬¸ÃÖµÔ½´ó£¬Ôò²ÉÑùºóµãÔÆÔ½Ï¡Êè
-param[out] out_pc ½á¹ûµãÔÆ¶ÔÏóµÄÖ¸Õë
+åŠŸèƒ½ï¼šå¯¹ç‚¹äº‘è¿›è¡Œè¿‘ä¼¼ä½“ç´ ä¸‹é‡‡æ ·
+param[in] in_pc ç›®æ ‡ç‚¹äº‘å¯¹è±¡çš„æŒ‡é’ˆ
+param[in] leaf_size ä½“ç´ ä¸‹é‡‡æ ·å¶å­å°ºå¯¸ï¼Œè¯¥å€¼è¶Šå¤§ï¼Œåˆ™é‡‡æ ·åç‚¹äº‘è¶Šç¨€ç–
+param[out] out_pc ç»“æœç‚¹äº‘å¯¹è±¡çš„æŒ‡é’ˆ
 */
 HEAD void CallingConvention approximateVoxelDownSample(pcl::PointCloud<pcl::PointXYZ> * in_pc, double leaf_size,
 	                                                   pcl::PointCloud<pcl::PointXYZ> * out_pc);
 
 /*
-¹¦ÄÜ£º¶ÔµãÔÆ½øĞĞ¾ùÔÈÏÂ²ÉÑù
-param[in] in_pc Ä¿±êµãÔÆ¶ÔÏóµÄÖ¸Õë
-param[in] radius ¾ùÔÈÏÂ²ÉÑù·Ö±æÂÊ²ÎÊı£¬¸ÃÖµÔ½´ó£¬Ôò²ÉÑùºóµãÔÆÔ½Ï¡Êè
-param[out] out_pc ½á¹ûµãÔÆ¶ÔÏóµÄÖ¸Õë
+åŠŸèƒ½ï¼šå¯¹ç‚¹äº‘è¿›è¡Œå‡åŒ€ä¸‹é‡‡æ ·
+param[in] in_pc ç›®æ ‡ç‚¹äº‘å¯¹è±¡çš„æŒ‡é’ˆ
+param[in] radius å‡åŒ€ä¸‹é‡‡æ ·åˆ†è¾¨ç‡å‚æ•°ï¼Œè¯¥å€¼è¶Šå¤§ï¼Œåˆ™é‡‡æ ·åç‚¹äº‘è¶Šç¨€ç–
+param[out] out_pc ç»“æœç‚¹äº‘å¯¹è±¡çš„æŒ‡é’ˆ
 */
 HEAD void CallingConvention uniformDownSample(pcl::PointCloud<pcl::PointXYZ> * in_pc, double radius,
 	                                          pcl::PointCloud<pcl::PointXYZ> * out_pc);
 
 /*
-¹¦ÄÜ£º¶ÔµãÔÆ½øĞĞÖ±Í¨ÂË²¨
-param[in] in_pc Ä¿±êµãÔÆ¶ÔÏóµÄÖ¸Õë
-param[in] axis_name Ñ¡ÄÄ¸öÖá½øĞĞ¹ıÂË
-param[in] limit_min ¹ıÂËÇø¼äµÄ×îĞ¡Öµ
-param[in] limit_max ¹ıÂËÇø¼äµÄ×î´óÖµ
-param[in] negative Êä³öÊÇ·ñ·´Ïò£¬ÈôÎªtrue£¬ÔòÊä³ö[limit_min,limit_max]Ö®ÍâµÄµã£¬Ò»°ãÎªfalse
-param[out] out_pc ½á¹ûµãÔÆ¶ÔÏóµÄÖ¸Õë
+åŠŸèƒ½ï¼šå¯¹ç‚¹äº‘è¿›è¡Œç›´é€šæ»¤æ³¢
+param[in] in_pc ç›®æ ‡ç‚¹äº‘å¯¹è±¡çš„æŒ‡é’ˆ
+param[in] axis_name é€‰å“ªä¸ªè½´è¿›è¡Œè¿‡æ»¤
+param[in] limit_min è¿‡æ»¤åŒºé—´çš„æœ€å°å€¼
+param[in] limit_max è¿‡æ»¤åŒºé—´çš„æœ€å¤§å€¼
+param[in] negative è¾“å‡ºæ˜¯å¦åå‘ï¼Œè‹¥ä¸ºtrueï¼Œåˆ™è¾“å‡º[limit_min,limit_max]ä¹‹å¤–çš„ç‚¹ï¼Œä¸€èˆ¬ä¸ºfalse
+param[out] out_pc ç»“æœç‚¹äº‘å¯¹è±¡çš„æŒ‡é’ˆ
 */
 HEAD void CallingConvention passThroughFilter(pcl::PointCloud<pcl::PointXYZ> * in_pc, char * axis_name,
 	                                          float limit_min, float limit_max, int negative,
 	                                          pcl::PointCloud<pcl::PointXYZ> * out_pc);
 
 /*
-¹¦ÄÜ£ºÊ¹ÓÃÍ³¼ÆÂË²¨¶ÔµãÔÆÈ¥Ôë£¬½«ÀëÈºµãÈ¥³ı
-param[in] in_x ´ı²ÉÑùµãÔÆx×ø±ê
-param[in] in_y ´ı²ÉÑùµãÔÆy×ø±ê
-param[in] in_z ´ı²ÉÑùµãÔÆz×ø±ê
-param[in] neighbor_num ½üÁÚÊı£¬¸ù¾İµãµÄÊıÄ¿Ñ¡È¡ºÏÊÊµÄÁÚ¾ÓÊı,Ä¬ÈÏ50
-param[in] thresh µãµÄÆ½¾ù¾àÀëÔÚ[¦Ì-¦Á¡Á¦Ò,¦Ì£«¦Á¡Á¦Ò]Ö®ÍâµÄµã±»ÌŞ³ı£¬thresh¼´ÊÇ¦Á
-param[out] out_x ²ÉÑùºóËùÓĞµãµÄX×ø±ê
-param[out] out_y ²ÉÑùºóËùÓĞµãµÄY×ø±ê
-param[out] out_z ²ÉÑùºóËùÓĞµãµÄZ×ø±ê
+åŠŸèƒ½ï¼šä½¿ç”¨ç»Ÿè®¡æ»¤æ³¢å¯¹ç‚¹äº‘å»å™ªï¼Œå°†ç¦»ç¾¤ç‚¹å»é™¤
+param[in] in_x å¾…é‡‡æ ·ç‚¹äº‘xåæ ‡
+param[in] in_y å¾…é‡‡æ ·ç‚¹äº‘yåæ ‡
+param[in] in_z å¾…é‡‡æ ·ç‚¹äº‘zåæ ‡
+param[in] neighbor_num è¿‘é‚»æ•°ï¼Œæ ¹æ®ç‚¹çš„æ•°ç›®é€‰å–åˆé€‚çš„é‚»å±…æ•°,é»˜è®¤50
+param[in] thresh ç‚¹çš„å¹³å‡è·ç¦»åœ¨[Î¼-Î±Ã—Ïƒ,Î¼ï¼‹Î±Ã—Ïƒ]ä¹‹å¤–çš„ç‚¹è¢«å‰”é™¤ï¼Œthreshå³æ˜¯Î±
+param[out] out_x é‡‡æ ·åæ‰€æœ‰ç‚¹çš„Xåæ ‡
+param[out] out_y é‡‡æ ·åæ‰€æœ‰ç‚¹çš„Yåæ ‡
+param[out] out_z é‡‡æ ·åæ‰€æœ‰ç‚¹çš„Zåæ ‡
 */
 HEAD void CallingConvention staFilter(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	                                  int neighbor_num, float thresh,
 	                                  pcl::PointCloud<pcl::PointXYZ> * out_pc);
 
 /*
-¹¦ÄÜ£º°ë¾¶ÂË²¨£¬½«ÀëÈºµãÈ¥³ı
+åŠŸèƒ½ï¼šåŠå¾„æ»¤æ³¢ï¼Œå°†ç¦»ç¾¤ç‚¹å»é™¤
 */
 HEAD void CallingConvention radiusFilter(pcl::PointCloud<pcl::PointXYZ> * in_pc,
 	                                     double radius, int num_thresh,
