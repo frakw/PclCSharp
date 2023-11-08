@@ -33,6 +33,9 @@
     <ClInclude Include="util_module.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="greedy_projection.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="filter.cpp">
@@ -51,6 +54,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="util_module.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="greedy_projection.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
