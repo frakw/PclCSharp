@@ -11,6 +11,16 @@
 #include <pcl/surface/vtk_smoothing/vtk_utils.h>
 #include <string>
 
+#include <pcl/ModelCoefficients.h>
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+#include <pcl/sample_consensus/method_types.h>
+#include <pcl/sample_consensus/model_types.h>
+#include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/filters/voxel_grid.h>
+#include <pcl/filters/extract_indices.h>
+#include <pcl/common/impl/angles.hpp>
+#include <pcl/segmentation/extract_clusters.h>
 
 using namespace std;
 //定义导出方式：以C语言的方式导出，因为C语言方式函数名保持不变
@@ -25,3 +35,9 @@ HEAD pcl::PolygonMesh* CallingConvention greedyProjection(pcl::PointCloud<pcl::P
 
 //save mesh to file
 HEAD void CallingConvention saveMesh(pcl::PolygonMesh* meshPtr, char* path, char* file_extension);
+
+//Plane model segmentation
+HEAD int CallingConvention planeModelSegmentation(pcl::PointCloud<pcl::PointXYZ>* cloud, int maxIteration, float distanceThreshold);
+
+
+HEAD int CallingConvention clusterExtraction(pcl::PointCloud<pcl::PointXYZ>* cloud, int minClusterSize, int maxClusterSize, float tolerance);

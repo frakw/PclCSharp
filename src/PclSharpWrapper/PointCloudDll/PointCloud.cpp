@@ -41,7 +41,13 @@ HEAD pcl::PointCloud<pcl::PointXYZ> * CallingConvention loadPcFile(char * path)
 {
 	pcl::PointCloud<pcl::PointXYZ> * cloud = new pcl::PointCloud<pcl::PointXYZ>();
 
-	if (pcl::io::loadPLYFile(path, *cloud) == -1)
+	//if (pcl::io::loadPLYFile(path, *cloud) == -1)
+	//{
+	//	pcl::PointXYZ p(0, 0, 0);
+	//	cloud->points.push_back(p);
+	//	return cloud;
+	//}
+	if (pcl::io::loadPCDFile(path, *cloud) == -1)
 	{
 		pcl::PointXYZ p(0, 0, 0);
 		cloud->points.push_back(p);
