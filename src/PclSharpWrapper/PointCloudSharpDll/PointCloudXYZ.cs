@@ -168,6 +168,8 @@ namespace PointCloudSharp
             _PointCloudPointer = loadPcFile(path);
 
         }
+
+
         ///@brief 无参析构函数
         ///@details 内存管理。当对象的生存期结束时，释放掉点云对象内存。这里容易出现野指针，万分注意！
         ~PointCloudXYZ()

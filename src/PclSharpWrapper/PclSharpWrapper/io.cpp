@@ -96,15 +96,37 @@ HEAD int CallingConvention loadTxtFile(char * path, pcl::PointCloud<pcl::PointXY
 //保存pcd文件
 HEAD void CallingConvention savePcdFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc, int binaryMode)
 {
-	if (binaryMode >= 1)
+	if (pc->height <= 0)
 	{
-		pcl::io::savePCDFile(path, *pc, true);
+		pc->height = 1;
 	}
-	else
+	if (pc->width <= 0)
 	{
-		pcl::io::savePCDFile(path, *pc, false);
+		pc->width = 1;
 	}
-
+	if (pc->size() != (pc->width * pc->height))
+	{
+		pc->height = pc->size();
+		pc->width = 1;
+	}
+	cout << "pc.size " << pc->size() << endl;
+	cout << "pc.width " << pc->width << endl;
+	cout << "pc.height " << pc->height << endl;
+	try
+	{
+		if (binaryMode >= 1)
+		{
+			pcl::io::savePCDFile(path, *pc, true);
+		}
+		else
+		{
+			pcl::io::savePCDFile(path, *pc, false);
+		}
+	}
+	catch (const std::exception& e)
+	{
+		cout << e.what() << endl;
+	}
 }
 //保存ply文件
 HEAD void CallingConvention savePlyFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc, int binaryMode)

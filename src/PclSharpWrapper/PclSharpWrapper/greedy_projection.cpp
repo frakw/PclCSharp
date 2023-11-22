@@ -182,7 +182,7 @@ HEAD int CallingConvention planeModelSegmentation(pcl::PointCloud<pcl::PointXYZ>
 	return i;
 }
 
-HEAD int CallingConvention clusterExtraction(pcl::PointCloud<pcl::PointXYZ>* cloud,int minClusterSize = 100,int maxClusterSize = 25000, float tolerance = 0.02f)
+vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusterExtraction(pcl::PointCloud<pcl::PointXYZ>* cloud, int minClusterSize, int maxClusterSize, float tolerance)
 {
 	//pcl::PCLPointCloud2::Ptr cloud_blob (new pcl::PCLPointCloud2), cloud_filtered_blob (new pcl::PCLPointCloud2);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered(new pcl::PointCloud<pcl::PointXYZ>), cloud_p(new pcl::PointCloud<pcl::PointXYZ>), cloud_f(new pcl::PointCloud<pcl::PointXYZ>);
@@ -200,34 +200,65 @@ HEAD int CallingConvention clusterExtraction(pcl::PointCloud<pcl::PointXYZ>* clo
 	sor.filter(*cloud_filtered);
 
 	// Creating the KdTree object for the search method of the extraction
-	pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ>);
-	tree->setInputCloud (cloud_filtered);
+	pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>);
+	tree->setInputCloud(cloud_filtered);
 
 	std::vector<pcl::PointIndices> cluster_indices;
 	pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
-	ec.setClusterTolerance (tolerance); // 2cm
-	ec.setMinClusterSize (minClusterSize);
-	ec.setMaxClusterSize (maxClusterSize);
-	ec.setSearchMethod (tree);
-	ec.setInputCloud (cloud_filtered);
-	ec.extract (cluster_indices);
+	ec.setClusterTolerance(tolerance); // 2cm
+	ec.setMinClusterSize(minClusterSize);
+	ec.setMaxClusterSize(maxClusterSize);
+	ec.setSearchMethod(tree);
+	ec.setInputCloud(cloud_filtered);
+	ec.extract(cluster_indices);
 	pcl::PCDWriter writer;
-	int j = 0;
+	vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters;
 	for (const auto& cluster : cluster_indices)
 	{
-		pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_cluster (new pcl::PointCloud<pcl::PointXYZ>);
+		pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_cluster(new pcl::PointCloud<pcl::PointXYZ>);
 		for (const auto& idx : cluster.indices) {
 			cloud_cluster->push_back((*cloud_filtered)[idx]);
 		} //*
-		cloud_cluster->width = cloud_cluster->size ();
+		cloud_cluster->width = cloud_cluster->size();
 		cloud_cluster->height = 1;
 		cloud_cluster->is_dense = true;
 
-		std::cout << "PointCloud representing the Cluster: " << cloud_cluster->size () << " data points." << std::endl;
+		std::cout << "PointCloud representing the Cluster: " << cloud_cluster->size() << " data points." << std::endl;
 		//std::stringstream ss;
 		//ss << std::setw(4) << std::setfill('0') << j;
-		writer.write<pcl::PointXYZ> ("seg_" + to_string(j) + ".pcd", *cloud_cluster, false); //*
-		j++;
+		//writer.write<pcl::PointXYZ>("seg_" + to_string(j) + ".pcd", *cloud_cluster, false); //*
+		clusters.push_back(cloud_cluster);
 	}
-	return j;
+	return clusters;
+}
+
+double getPointCloudAverageHeight(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
+{
+	double totalHeight = 0.0;
+	for (int i = 0; i < cloud->points.size(); i++)
+	{
+		pcl::PointXYZ point = cloud->points[i];
+		totalHeight += point.z;
+	}
+	return totalHeight / (double)cloud->points.size();
+}
+
+HEAD int CallingConvention layerExtraction(pcl::PointCloud<pcl::PointXYZ>* cloud,int minClusterSize = 100,int maxClusterSize = 25000, float tolerance = 0.02f, double clusterMergeThreshold = 0.01f)
+{
+	vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters = clusterExtraction(cloud, minClusterSize, maxClusterSize, tolerance);
+	vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> layers;
+	vector<double> clusterHeights;
+	for (int i = 0; i < clusters.size(); i++)
+	{
+		clusterHeights.push_back(getPointCloudAverageHeight(clusters[i]));
+	}
+	for (int i = 0; i < clusters.size(); i++)
+	{
+		for (int j = 0; j < clusters.size(); j++)
+		{
+			if (i == j) break;
+
+		}
+	}
+	return layers.size();
 }

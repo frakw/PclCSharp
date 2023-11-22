@@ -14,4 +14,3 @@ D:\TOSHIBA_DT01ACA300\common\PclCSharp\bin\PointCloudSharpDll.pdb
 D:\TOSHIBA_DT01ACA300\common\PclCSharp\src\PclSharpWrapper\PointCloudSharpDll\obj\Release\PointCloudSharpDll.csproj.CoreCompileInputs.cache
 D:\TOSHIBA_DT01ACA300\common\PclCSharp\src\PclSharpWrapper\PointCloudSharpDll\obj\Release\PointCloudSharpDll.dll
 D:\TOSHIBA_DT01ACA300\common\PclCSharp\src\PclSharpWrapper\PointCloudSharpDll\obj\Release\PointCloudSharpDll.pdb
-D:\TOSHIBA_DT01ACA300\common\PclCSharp\src\PclSharpWrapper\PointCloudSharpDll\obj\Release\PointCloudSharpDll.csproj.AssemblyReference.cache

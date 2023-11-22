@@ -18,7 +18,7 @@ namespace PclCSharp
         [DllImport("PclDll.dll", CallingConvention = CallingConvention.StdCall, EntryPoint = "planeModelSegmentation", CharSet = CharSet.Auto)]
         public static extern int planeModelSegmentation(IntPtr in_pc, int maxIteration = 1000, float distanceThreshold = 0.01f);
 
-        [DllImport("PclDll.dll", CallingConvention = CallingConvention.StdCall, EntryPoint = "clusterExtraction", CharSet = CharSet.Auto)]
-        public static extern int clusterExtraction(IntPtr in_pc, int minClusterSize = 100, int maxClusterSize = 25000, float tolerance = 0.02f);
+        [DllImport("PclDll.dll", CallingConvention = CallingConvention.StdCall, EntryPoint = "layerExtraction", CharSet = CharSet.Auto)]
+        public static extern int layerExtraction(IntPtr in_pc, int minClusterSize = 100, int maxClusterSize = 25000, float tolerance = 0.02f);
     }
 }

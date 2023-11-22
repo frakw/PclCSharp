@@ -10,6 +10,7 @@
 #include <pcl/io/vtk_lib_io.h>
 #include <pcl/surface/vtk_smoothing/vtk_utils.h>
 #include <string>
+#include <vector>
 
 #include <pcl/ModelCoefficients.h>
 #include <pcl/io/pcd_io.h>
@@ -39,5 +40,8 @@ HEAD void CallingConvention saveMesh(pcl::PolygonMesh* meshPtr, char* path, char
 //Plane model segmentation
 HEAD int CallingConvention planeModelSegmentation(pcl::PointCloud<pcl::PointXYZ>* cloud, int maxIteration, float distanceThreshold);
 
+vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusterExtraction(pcl::PointCloud<pcl::PointXYZ>* cloud, int minClusterSize, int maxClusterSize, float tolerance);
 
-HEAD int CallingConvention clusterExtraction(pcl::PointCloud<pcl::PointXYZ>* cloud, int minClusterSize, int maxClusterSize, float tolerance);
+double getPointCloudAverageHeight(pcl::PointCloud<pcl::PointXYZ>::Ptr);
+
+HEAD int CallingConvention layerExtraction(pcl::PointCloud<pcl::PointXYZ>* cloud, int minClusterSize, int maxClusterSize, float tolerance,double clusterMergeThreshold);
