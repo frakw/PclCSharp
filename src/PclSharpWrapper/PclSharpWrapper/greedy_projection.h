@@ -11,6 +11,9 @@
 #include <pcl/surface/vtk_smoothing/vtk_utils.h>
 #include <string>
 #include <vector>
+#include <utility>
+#include <fstream>
+#include <algorithm>
 
 #include <pcl/ModelCoefficients.h>
 #include <pcl/io/pcd_io.h>
@@ -45,3 +48,5 @@ vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusterExtraction(pcl::PointCloud<pc
 double getPointCloudAverageHeight(pcl::PointCloud<pcl::PointXYZ>::Ptr);
 
 HEAD int CallingConvention layerExtraction(pcl::PointCloud<pcl::PointXYZ>* cloud, int minClusterSize, int maxClusterSize, float tolerance,double clusterMergeThreshold);
+
+

@@ -243,22 +243,81 @@ double getPointCloudAverageHeight(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud)
 	return totalHeight / (double)cloud->points.size();
 }
 
+struct ClusterAverageHeight
+{
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloudPtr;
+	double averageHeight;
+	ClusterAverageHeight(pcl::PointCloud<pcl::PointXYZ>::Ptr _cloudPtr)
+	{
+		cloudPtr = _cloudPtr;
+		updateAverage();
+	}
+	void updateAverage()
+	{
+		double totalHeight = 0.0;
+		for (int i = 0; i < cloudPtr->points.size(); i++)
+		{
+			pcl::PointXYZ point = cloudPtr->points[i];
+			totalHeight += point.z;
+		}
+		averageHeight = totalHeight / (double)cloudPtr->points.size();
+	}
+	void addCloud(const ClusterAverageHeight& target)
+	{
+		for (int i = 0; i < target.cloudPtr->points.size(); i++)
+		{
+			this->cloudPtr->push_back(target.cloudPtr->points[i]);
+		}
+		updateAverage();
+	}
+};
+
 HEAD int CallingConvention layerExtraction(pcl::PointCloud<pcl::PointXYZ>* cloud,int minClusterSize = 100,int maxClusterSize = 25000, float tolerance = 0.02f, double clusterMergeThreshold = 0.01f)
 {
 	vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters = clusterExtraction(cloud, minClusterSize, maxClusterSize, tolerance);
-	vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> layers;
-	vector<double> clusterHeights;
+	vector<ClusterAverageHeight> layers;
 	for (int i = 0; i < clusters.size(); i++)
 	{
-		clusterHeights.push_back(getPointCloudAverageHeight(clusters[i]));
+		layers.push_back(ClusterAverageHeight(clusters[i]));
+		cout << "cluster " << i << " average height:" << layers.back().averageHeight << endl;
 	}
-	for (int i = 0; i < clusters.size(); i++)
+	
+	cout << "merging cluster into layer" << endl;
+	for (int i = 0; i < layers.size(); i++)
 	{
-		for (int j = 0; j < clusters.size(); j++)
+		for (int j = i + 1; j < layers.size(); j++)
 		{
-			if (i == j) break;
-
+			if (fabs(layers[i].averageHeight - layers[j].averageHeight) < clusterMergeThreshold)
+			{
+				layers[i].addCloud(layers[j]);
+				layers.erase(layers.begin() + j);
+				j--;
+			}
 		}
 	}
+	cout << "sorting layer" << endl;
+	for (int i = 0; i < layers.size(); i++)
+	{
+		for (int j = i + 1; j < layers.size(); j++)
+		{
+			if (layers[i].averageHeight > layers[j].averageHeight)
+			{
+				swap(layers[i], layers[j]);
+			}
+		}
+	}
+	cout << "outputing" << endl;
+	pcl::PCDWriter writer;
+	fstream layerDistanceFile;
+	layerDistanceFile.open("layer_distance.txt", std::ofstream::out | std::ofstream::trunc);
+	for (int i = 0; i < layers.size(); i++)
+	{
+		writer.write<pcl::PointXYZ>("layer_" + to_string(i) + ".pcd", *layers[i].cloudPtr, false);
+		if (i != layers.size() - 1)
+		{
+			layerDistanceFile << layers[i + 1].averageHeight - layers[i].averageHeight << endl;
+		}
+	}
+	layerDistanceFile.close();
 	return layers.size();
 }

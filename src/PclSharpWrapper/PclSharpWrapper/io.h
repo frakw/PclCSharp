@@ -59,7 +59,7 @@ param[in] path 点云文件路径
 param[out] pc 点云对象
 成功加载文件返回1，失败则返回0
 */
-HEAD int CallingConvention loadPcdFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc);
+HEAD int CallingConvention loadPcdFile(const char* path, pcl::PointCloud<pcl::PointXYZ> * pc);
 
 /*
 功能：加载obj文件

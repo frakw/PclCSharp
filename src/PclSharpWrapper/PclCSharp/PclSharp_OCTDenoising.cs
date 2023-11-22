@@ -19,6 +19,6 @@ namespace PclCSharp
         public static extern int planeModelSegmentation(IntPtr in_pc, int maxIteration = 1000, float distanceThreshold = 0.01f);
 
         [DllImport("PclDll.dll", CallingConvention = CallingConvention.StdCall, EntryPoint = "layerExtraction", CharSet = CharSet.Auto)]
-        public static extern int layerExtraction(IntPtr in_pc, int minClusterSize = 100, int maxClusterSize = 25000, float tolerance = 0.02f);
+        public static extern int layerExtraction(IntPtr in_pc, int minClusterSize = 100, int maxClusterSize = 25000, float tolerance = 0.02f, double clusterMergeThreshold = 0.01f);
     }
 }

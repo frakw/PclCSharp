@@ -37,7 +37,7 @@ HEAD int CallingConvention loadPlyFile(char * path, pcl::PointCloud<pcl::PointXY
 	}
 }
 //加载pcd文件
-HEAD int CallingConvention loadPcdFile(char* path, pcl::PointCloud<pcl::PointXYZ> * pc)
+HEAD int CallingConvention loadPcdFile(const char* path, pcl::PointCloud<pcl::PointXYZ> * pc)
 {
 	if (pcl::io::loadPCDFile(path, *pc) == -1)
 	{
