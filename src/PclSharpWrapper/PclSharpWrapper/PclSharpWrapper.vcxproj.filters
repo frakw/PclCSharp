@@ -33,7 +33,7 @@
     <ClInclude Include="util_module.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="greedy_projection.h">
+    <ClInclude Include="PclSharp_OCTDenoising.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,7 +56,7 @@
     <ClCompile Include="util_module.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="greedy_projection.cpp">
+    <ClCompile Include="PclSharp_OCTDenoising.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
